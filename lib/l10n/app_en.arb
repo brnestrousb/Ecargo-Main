@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "onboardingTitle1": "Welcome to ECarrgo Demo!",
+  "onboardingDesc1": "Discover a smarter way to ship goods with ECarrgo, a digital platform that connects shippers and carriers through a competitive auction system, both domestically and internationally.",
+  
+  "onboardingTitle2": "Digital Logistics Simplified",
+  "onboardingDesc2": "Track your shipments in real time, compare carrier bids, and manage your logistics from one powerful dashboard.",
+
+  "onboardingTitle3": "Join the ECarrgo Network",
+  "onboardingDesc3": "Connect with trusted logistics partners and scale your business efficiently through our smart logistics ecosystem.",
+
+  "onboardingTitle4": "Smart Shipping Experience",
+  "onboardingDesc4": "Experience faster, smarter, and more cost-effective shipping with ECarrgo's intelligent matching technology.",
+
+  "buttonLogin": "Login",
+  "buttonRegister": "I am a new user, Sign up",
+
+  "loginAsTitle": "Login as?",
+  "loginAsVendor": "Vendor Logistics",
+  "loginAsSender": "Sender"
+}

@@ -1,0 +1,21 @@
+{
+  "@@locale": "id",
+  "onboardingTitle1": "Selamat Datang di ECarrgo Demo!",
+  "onboardingDesc1": "Temukan cara lebih pintar untuk mengirim barang dengan ECarrgo, platform digital yang menghubungkan pengirim dan pengangkut melalui sistem lelang yang kompetitif, baik domestik maupun internasional.",
+
+  "onboardingTitle2": "Logistik Digital yang Sederhana",
+  "onboardingDesc2": "Lacak kiriman Anda secara real-time, bandingkan penawaran pengangkut, dan kelola logistik Anda dari satu dasbor yang kuat.",
+
+  "onboardingTitle3": "Bergabunglah dengan Jaringan ECarrgo",
+  "onboardingDesc3": "Terhubung dengan mitra logistik terpercaya dan skalakan bisnis Anda secara efisien melalui ekosistem logistik pintar kami.",
+
+  "onboardingTitle4": "Pengalaman Pengiriman Pintar",
+  "onboardingDesc4": "Nikmati pengiriman yang lebih cepat, pintar, dan hemat biaya dengan teknologi pencocokan cerdas dari ECarrgo.",
+
+  "buttonLogin": "Masuk",
+  "buttonRegister": "Saya pengguna baru, Sign up",
+
+  "loginAsTitle": "Masuk sebagai?",
+  "loginAsVendor": "Vendor Logistik",
+  "loginAsSender": "Pengirim"
+}

@@ -1,0 +1,199 @@
+name: ecarrgo
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+  smooth_page_indicator: ^1.2.1
+  dropdown_button2: ^2.3.9
+  flutter_svg: ^2.2.0
+  provider: ^6.1.0
+  flutter_map: ^8.2.1
+  latlong2: ^0.9.0
+  logger: ^2.6.0
+  dio: ^5.8.0+1
+  firebase_core: ^4.0.0
+  firebase_messaging: ^16.0.0
+  geolocator: ^14.0.2
+  http: ^1.0.0
+  image_picker: ^1.1.2
+  flutter_secure_storage: ^9.2.4
+  riverpod: ^2.6.1
+  hooks_riverpod: ^2.6.1
+  flutter_local_notifications: ^19.4.0
+  shared_preferences: ^2.5.3
+  lottie: ^3.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.14.4
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^6.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/ecarrgo/app_icon.png"
+
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  generate: true
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/logo.png
+    - assets/images/globe.png
+    - assets/images/users/default.png
+    - assets/images/icons/email_verification_icon.svg
+    #home icon
+    - assets/images/icons/destination_location_icon.svg
+    - assets/images/icons/current_location_icon.svg
+    - assets/images/icons/pick_from_maps_icon.svg
+    - assets/images/icons/bookmark_icon.svg
+    - assets/images/icons/note_driver_icon.svg
+    - assets/images/icons/luar_kota_icon.svg
+    - assets/images/icons/dalam_kota_icon.svg
+    - assets/images/icons/proteksi_icon.svg
+    - assets/images/icons/empty_state.svg
+
+    #type barang icon
+    - assets/images/icons/type/book_type_icon.svg
+    - assets/images/icons/type/clothes_type_icon.svg
+    - assets/images/icons/type/document_type_icon.svg
+    - assets/images/icons/type/food_type_icon.svg
+    - assets/images/icons/type/furnitur_type_icon.svg
+    - assets/images/icons/type/medicine_type_icon.svg
+    - assets/images/icons/type/default_type_icon.svg
+
+    #destination icon
+    - assets/images/icons/map_pin_icon.svg
+    - assets/images/icons/destination_pin_icon.svg
+    - assets/images/icons/warning_delivery_icon.svg
+    - assets/images/icons/protection/blue_protection_icon.svg
+    - assets/images/icons/protection/gold_protection_icon.svg
+    - assets/images/icons/protection/silver_protection_icon.svg
+    - assets/images/icons/confirm_fill_data.svg
+    - assets/images/icons/cs_icon.svg
+    - assets/images/icons/started_lelang_icon.svg
+    - assets/images/icons/bni.png
+    # lainnya section
+    - assets/images/icons/btn_edit.svg
+    - assets/images/icons/be_vendor_icon.svg
+    - assets/images/icons/address_icon.svg
+    - assets/images/icons/language_icon.svg
+    - assets/images/icons/policies_and_privacy_icon.svg
+    - assets/images/icons/rating_icon.svg
+    - assets/images/icons/help_icon.svg
+    - assets/images/icons/data_attribution_icon.svg
+    - assets/images/icons/terms_of_service_icon.svg
+    - assets/images/icons/call.svg
+    - assets/images/icons/history.svg
+    - assets/images/icons/whatsapp.svg
+    # avatar icon
+    - assets/images/icons/avatar.svg
+    - assets/images/icons/wa_icon.svg
+    # level tier vendor
+    - assets/images/icons/level/bronze.svg
+    - assets/images/icons/level/silver_icon.svg
+    # truck icon
+    - assets/images/icons/truck_icon.svg
+    - assets/images/icons/arrive_icon.svg
+    # bg-slider
+    - assets/images/slider_home/bg1.png
+    - assets/images/slider_home/bg2.png
+    # icon register
+    - assets/images/icons/apple.png
+    - assets/images/icons/facebook.png
+    - assets/images/icons/google.png
+    - assets/images/icons/home_lokasi_favorit_icon.png
+    - assets/images/icons/home_tambah_lokasi_icon.png
+    - assets/images/icons/home_dalam_kota_icon.png
+    - assets/images/icons/home_luar_kota_icon.png
+    # jelajahi
+    - assets/images/jelajahi_images/bg1.png
+    - assets/images/jelajahi_images/bg2.png
+    - assets/images/jelajahi_images/bg3.png
+    # bottom naviagtion icon
+    - assets/images/icons/bottom_navigation/home.svg
+    - assets/images/icons/bottom_navigation/aktivitas.svg
+    - assets/images/icons/bottom_navigation/notifikasi.svg
+    - assets/images/icons/bottom_navigation/lainnya.svg
+    # onboarding
+    - assets/images/onboarding_illustration.png
+    - assets/images/logo/ECarrgo_Company_Profile-Blue.png
+    - assets/images/logo/ECarrgo_Company_Profile-White.png
+    - assets/images/logo/customer.png
+    - assets/images/logo/driver.png
+    - assets/images/logo/vendor/daftar_icon.png
+    - assets/images/logo/vendor/dukungan_icon.png
+    - assets/images/logo/vendor/jangkau_icon.png
+    - assets/images/logo/pengirim/kirim_icon.png
+    - assets/images/logo/pengirim/layanan_icon.png
+    - assets/images/logo/pengirim/pantau_icon.png
+    - assets/images/vector/line-ecarrgo-home-mobile.svg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
