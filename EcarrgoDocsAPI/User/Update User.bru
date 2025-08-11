@@ -1,0 +1,26 @@
+meta {
+  name: Update User
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{HOST_LOCAL}}/api/v1/users/insert-or-update-user-devices
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "name": "Budi Santoso",
+    "company": "PT. Maju Jaya",
+    "email": "budi.santoso@example.com",
+    "phone": "081234567890",
+    "avatar": "https://example.com/avatar/budi.jpg",
+    "address": "Jl. Melati No. 123, Jakarta"
+  }
+}

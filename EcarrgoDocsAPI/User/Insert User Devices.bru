@@ -1,0 +1,21 @@
+meta {
+  name: Insert User Devices
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{HOST_LOCAL}}/api/v1/users/insert-or-update-user-devices
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "token_fcm": "tokenfromfirebase"
+  }
+}

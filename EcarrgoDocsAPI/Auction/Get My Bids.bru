@@ -1,0 +1,15 @@
+meta {
+  name: Get My Bids
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{HOST_LOCAL}}/api/v1/auctions/my-bids
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZlcmRpYW5zeWFobXVoNUBnbWFpbC5jb20iLCJzdWIiOjQsInJvbGUiOjMsImlhdCI6MTc1NDgxMjU1NywiZXhwIjoxNzU0ODk4OTU3fQ.VRYzsWCxLzb_ME4XjJsIwn3Tn1dOym-8GERNr28DHZw
+}

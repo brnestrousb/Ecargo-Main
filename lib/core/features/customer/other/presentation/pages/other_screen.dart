@@ -1,6 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:ecarrgo/core/constant/colors.dart';
 import 'package:ecarrgo/core/features/customer/other/data/datasources/users_remote_datasource.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/help/atribusi_data.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/help/beri_rating.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/help/kebijakan_privasi.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/help/ketentuan_layanan.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/help/pilih_bahasa.dart';
 import 'package:ecarrgo/core/features/customer/other/presentation/widgets/profile_card.dart';
 import 'package:ecarrgo/core/network/api_constants.dart';
 import 'package:ecarrgo/core/network/storage/secure_storage_service.dart';
@@ -105,8 +110,11 @@ class _OtherScreenState extends State<OtherScreen> {
             _buildMenuItem('assets/images/icons/help_icon.svg', 'Bantuan', () {
               Navigator.pushNamed(context, '/help');
             }),
-            _buildMenuItem(
-                'assets/images/icons/language_icon.svg', 'Bahasa', () {}),
+            _buildMenuItem('assets/images/icons/language_icon.svg', 'Bahasa',
+                () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PilihBahasaPage()));
+            }),
             const SizedBox(height: 24),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
@@ -116,13 +124,29 @@ class _OtherScreenState extends State<OtherScreen> {
               ),
             ),
             _buildMenuItem('assets/images/icons/policies_and_privacy_icon.svg',
-                'Kebijakan & Privasi', () {}),
+                'Kebijakan & Privasi', () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => KebijakanPrivasiPage()));
+            }),
             _buildMenuItem('assets/images/icons/terms_of_service_icon.svg',
-                'Ketentuan Layanan', () {}),
+                'Ketentuan Layanan', () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => KetentuanLayananPage()));
+            }),
             _buildMenuItem('assets/images/icons/data_attribution_icon.svg',
-                'Atribusi Data', () {}),
-            _buildMenuItem(
-                'assets/images/icons/rating_icon.svg', 'Beri Rating', () {}),
+                'Atribusi Data', () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AtribusiDataPage()));
+            }),
+            _buildMenuItem('assets/images/icons/rating_icon.svg', 'Beri Rating',
+                () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BeriRatingPage()));
+            }),
           ],
         ),
       ),

@@ -1,0 +1,16 @@
+meta {
+  name: Get Public All Auction
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{HOST_LOCAL}}/guest/api/v1/auctions?page=1&limit=20
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 1
+  limit: 20
+}

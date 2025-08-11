@@ -1,0 +1,19 @@
+meta {
+  name: Get Real-time Updates
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{HOST_LOCAL}}/tracking/updates/11?lastUpdate=2025-08-02T10:00:00Z
+  body: none
+  auth: bearer
+}
+
+params:query {
+  lastUpdate: 2025-08-02T10:00:00Z
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Update Auctions
+  type: http
+  seq: 7
+}
+
+patch {
+  url: {{HOST_LOCAL}}/api/v1/auctions/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "auction_starting_price": "60.000.000",
+    "auction_duration": "24 Jam",
+    "status": "active"
+  }
+}

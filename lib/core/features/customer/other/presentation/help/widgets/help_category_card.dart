@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HelpCategoryCard extends StatefulWidget {
   const HelpCategoryCard({
@@ -6,10 +7,12 @@ class HelpCategoryCard extends StatefulWidget {
     required this.icon,
     required this.title,
     required this.question,
+    required this.onTap,
   });
-  final IconData icon;
+  final SvgPicture icon;
   final String title;
-  final List<String> question;
+  final String question;
+  final VoidCallback? onTap;
 
   @override
   State<HelpCategoryCard> createState() => _HelpCategoryCardState();
@@ -21,9 +24,8 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: 1.5,
       child: InkWell(
         onTap: () {
@@ -41,7 +43,7 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
               children: [
                 Row(
                   children: [
-                    Icon(widget.icon, color: Colors.black),
+                    SizedBox(width: 24, height: 24, child: widget.icon),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -63,27 +65,20 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
                 if (isExpanded) const SizedBox(height: 12),
                 if (isExpanded)
                   Column(
-                    children: widget.question.map((q) {
-                      return Column(
-                        children: [
-                          const Divider(),
-                          ListTile(
-                            dense: true,
-                            title: Text(
-                              q,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                            trailing: const Icon(
-                              Icons.chevron_right,
-                              size: 18,
-                            ),
-                            onTap: () {
-                              // TODO: handle klik pertanyaan
-                            },
-                          ),
-                        ],
-                      );
-                    }).toList(),
+                    children: [
+                      const Divider(),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          widget.question,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        trailing: const Icon(Icons.chevron_right, size: 18),
+                        onTap: () {
+                          widget.onTap!();
+                        },
+                      ),
+                    ],
                   ),
               ],
             ),

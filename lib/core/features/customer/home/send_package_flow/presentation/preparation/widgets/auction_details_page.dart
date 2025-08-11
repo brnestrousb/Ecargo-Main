@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:ecarrgo/core/features/customer/home/send_package_flow/data/protection_options_data.dart';
-import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/model/protection_option_model.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step1/address_input_group_with_dots.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step1/delivery_date_time_selector.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step1/step_title.dart';
@@ -8,10 +6,7 @@ import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentati
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step2/item_type_selector.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step3/dash_border_painter.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step3/shipping_package_card.dart';
-import 'package:ecarrgo/core/features/customer/home/send_package_flow/data/shipping_package_data.dart';
-import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step4/auction_duration.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/fill_data/widgets/step4/price_input_field.dart';
-import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/send_package_flow_layout.dart';
 import 'package:ecarrgo/core/network/api_constants.dart';
 import 'package:ecarrgo/core/network/storage/secure_storage_service.dart';
 import 'package:ecarrgo/core/providers/fill_data_provider.dart';

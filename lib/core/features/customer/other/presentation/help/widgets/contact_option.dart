@@ -4,12 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ContactOption extends StatelessWidget {
   final String iconPath;
   final String label;
+  final VoidCallback? onTap;
 
-  const ContactOption({
-    super.key,
-    required this.iconPath,
-    required this.label,
-  });
+  const ContactOption({super.key, required this.iconPath, required this.label, this.onTap});
 
   String _normalizeLabel(String label) {
     if (!label.contains('\n')) {
@@ -20,9 +17,8 @@ class ContactOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () => Navigator.pop(context),
+      return GestureDetector(
+        onTap: onTap,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -55,7 +51,6 @@ class ContactOption extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }

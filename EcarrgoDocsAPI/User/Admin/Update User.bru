@@ -1,0 +1,43 @@
+meta {
+  name: Update User
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{HOST_LOCAL}}/api/v1/users/admin/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "name": "PT Updated Vendor",
+    "company": "Updated Logistics",
+    "email": "updated_vendor@contoh.com",
+    "phone": "081234000000",
+    "avatar": "users/updated.png",
+    "address": "Jl. Update No.1, Jakarta",
+    "role_id": 2,
+    "is_active": false,
+    "is_verified": true,
+    "vendor_details": {
+      "company_name": "PT Updated Vendor",
+      "company_logo": "vendors/updated/logo.png",
+      "business_license_number": "87654321",
+      "business_license_type": "SIUP",
+      "business_license_file": "licenses/siup_updated.pdf",
+      "tax_id": "09.876.543.2-109.000",
+      "address": "Jl. Update No.1, Jakarta",
+      "contact_person": "Siti Aminah",
+      "phone": "081299999999",
+      "email": "contact@updated-contoh.com",
+      "description": "Logistik cepat dan handal",
+      "level": "silver"
+    }
+  }
+}

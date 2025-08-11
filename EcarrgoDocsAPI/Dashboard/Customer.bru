@@ -1,0 +1,15 @@
+meta {
+  name: Customer
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{HOST_LOCAL}}/api/v1/dashboard/admin
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}

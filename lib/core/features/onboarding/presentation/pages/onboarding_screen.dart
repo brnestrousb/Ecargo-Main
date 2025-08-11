@@ -1,8 +1,8 @@
 import 'package:ecarrgo/core/constant/colors.dart';
+import 'package:ecarrgo/core/features/login_as/presentation/pages/login_as_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ecarrgo/l10n/app_localizations.dart';
-import 'package:ecarrgo/core/features/login_as/presentation/pages/login_as_screen.dart';
 import 'package:ecarrgo/core/features/register_as/presentation/pages/register_as_screen.dart';
 import 'package:ecarrgo/core/widgets/language_toggle_button.dart';
 

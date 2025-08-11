@@ -1,5 +1,6 @@
 import 'package:ecarrgo/core/features/auth/providers/auth_token_provider.dart';
 import 'package:ecarrgo/core/features/customer/other/presentation/help/help.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/help/widgets/ticket_provider.dart';
 import 'package:ecarrgo/core/providers/fcm_token_provider.dart';
 import 'package:ecarrgo/core/providers/fill_data_provider.dart';
 import 'package:ecarrgo/core/providers/shipment_progress_provider.dart';
@@ -8,7 +9,7 @@ import 'package:ecarrgo/l10n/app_localizations.dart';
 import 'package:ecarrgo/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'core/features/splash/presentation/pages/splash_screen.dart';
 import 'core/features/onboarding/presentation/pages/onboarding_screen.dart';
@@ -16,7 +17,7 @@ import 'core/providers/locale_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
 
   final authTokenProvider = AuthTokenProvider();
   await authTokenProvider.loadToken(); // <-- load token dari storage
@@ -33,6 +34,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => FillDataProvider()),
         ChangeNotifierProvider(create: (_) => authTokenProvider),
         ChangeNotifierProvider(create: (_) => ShipmentProvider()),
+        ChangeNotifierProvider(create: (_) => TicketProvider()),
         ChangeNotifierProvider.value(value: progressProvider),
       ],
       child: const MyApp(),

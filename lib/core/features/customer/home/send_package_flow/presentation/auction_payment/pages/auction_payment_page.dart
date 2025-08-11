@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/widgets/confirm_pickup_destination_dialog.dart';
-import 'package:ecarrgo/core/features/customer/home/send_package_flow/widgets/timeline_step.dart';
 import 'package:ecarrgo/core/features/customer/home/send_package_flow/presentation/preparation/widgets/auction_details_page.dart';
 import 'package:logger/logger.dart';
 

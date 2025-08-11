@@ -1,0 +1,21 @@
+meta {
+  name: Select Vendor Winner Bidder
+  type: http
+  seq: 9
+}
+
+patch {
+  url: {{HOST_LOCAL}}/api/v1/auctions/1/select-winner
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "vendor_id": 2
+  }
+}

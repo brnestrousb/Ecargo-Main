@@ -1,0 +1,15 @@
+meta {
+  name: Get Shipment Rates
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{HOST_LOCAL}}/api/v1/admin/shipment-rates
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Get File
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{HOST_LOCAL}}/api/v1/upload/file/18c2edfa9b2d774b36e798bfa1a30ac7.png
+  body: none
+  auth: bearer
+}
+
+headers {
+  site-password: abcdefg
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:file {
+  file: @file(/Users/dinulfatahryan/Desktop/Screenshot 2025-07-12 at 22.21.45.png) @contentType(image/png)
+}

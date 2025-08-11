@@ -1,0 +1,29 @@
+meta {
+  name: Push Notif to User
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{HOST_LOCAL}}/api/v1/users/push-notif-to-users
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "userId": 10,
+    "notification": {
+      "title": "Selamat Datang!",
+      "body": "Akun Anda telah berhasil dibuat."
+    },
+    "data": {
+      "event": "user_registered",
+      "user_name": "Budi"
+    }
+  }
+}

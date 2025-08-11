@@ -1,0 +1,20 @@
+meta {
+  name: Tracking Summary
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{HOST_LOCAL}}/tracking/summary?status=in_transit&user_id=456
+  body: none
+  auth: bearer
+}
+
+params:query {
+  status: in_transit
+  user_id: 456
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}

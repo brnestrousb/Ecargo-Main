@@ -1,0 +1,15 @@
+meta {
+  name: Get Auction by ID
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{HOST_LOCAL}}/api/v1/auctions/14
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}

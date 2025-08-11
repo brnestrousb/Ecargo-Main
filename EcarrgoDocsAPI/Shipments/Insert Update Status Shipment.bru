@@ -1,0 +1,25 @@
+meta {
+  name: Insert Update Status Shipment
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{HOST_LOCAL}}/api/v1/admin/shipment-status-histories
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "shipment_id": 22,
+    "status": "in_transit",
+    "remarks": "sudah sampai lokasi A",
+    "changed_at": "2025-08-02T14:30:00.000Z"
+  }
+  // Nilai status harus salah satu dari: "draft", "auction", "waiting_pickup", "in_transit", "delivered", "completed", "cancelled".
+}

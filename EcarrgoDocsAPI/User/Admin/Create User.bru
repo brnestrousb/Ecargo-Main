@@ -1,0 +1,44 @@
+meta {
+  name: Create User
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{HOST_LOCAL}}/api/v1/users/admin/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "name": "PT Contoh Vendor",
+    "company": "Contoh Logistics",
+    "email": "vendor@contoh.com",
+    "password": "ExamplePass123!",
+    "phone": "081234567890",
+    "avatar": "users/vendor.png",
+    "address": "Jl. Industri No. 10, Surabaya",
+    "role_id": 2,
+    "is_active": true,
+    "is_verified": false,
+    "vendor_details": {
+      "company_name": "PT Contoh Vendor",
+      "company_logo": "vendors/contoh/logo.png",
+      "business_license_number": "12345678",
+      "business_license_type": "SIUP",
+      "business_license_file": "licenses/siup.pdf",
+      "tax_id": "09.123.456.7-890.000",
+      "address": "Jl. Industri No. 10, Surabaya",
+      "contact_person": "Budi Santoso",
+      "phone": "081298765432",
+      "email": "contact@contoh.com",
+      "description": "Menyediakan jasa logistik tercepat",
+      "level": "gold"
+    }
+  }
+}

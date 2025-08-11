@@ -1,0 +1,23 @@
+meta {
+  name: Place Bid
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{HOST_LOCAL}}/api/v1/auctions/place-bid
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "auction_id": 2,
+    "bid_amount": 55000000,
+    "notes": "I can deliver within 2 days"
+  }
+}

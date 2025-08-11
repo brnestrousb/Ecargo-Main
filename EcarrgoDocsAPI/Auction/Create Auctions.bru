@@ -1,0 +1,51 @@
+meta {
+  name: Create Auctions
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{HOST_LOCAL}}/api/v1/auctions
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:json {
+  {
+    "pickup_location": {
+      "address": "Jalan KimiaFarma Parungserab, Parung Serab, Ciledug, Tangerang, Banten, Jawa, 15226, Indonesia",
+      "latitude": -6.251654,
+      "longitude": 106.7016879,
+      "placeName": "Jalan KimiaFarma Parungserab",
+      "city": "Tangerang",
+      "postalCode": "15226",
+      "country": "Indonesia"
+    },
+    "destination_location": {
+      "address": "Dusun Cimanggu Desa Cikalong, Cikalong, Pangandaran, Jawa Barat, Jawa, Indonesia",
+      "latitude": -7.6407968,
+      "longitude": 108.5567288,
+      "placeName": "",
+      "city": "Cikalong",
+      "postalCode": "",
+      "country": "Indonesia"
+    },
+    "selected_date": "2025-07-23",
+    "selected_time": "20:10",
+    "driver_note": "oioiiii",
+    "item_types": "emas",
+    "item_weight_ton": "30",
+    "item_value_rp": "50.000.000",
+    "item_volume_m3": "30",
+    "item_description": "emas mahal",
+    "shipping_type": "Ekspres",
+    "protection": "Gold Protection",
+    "delivery_datetime": "2025-07-23T20:10:00.000",
+    "auction_starting_price": "50.000.000",
+    "auction_duration": "12 Jam"
+  }
+}

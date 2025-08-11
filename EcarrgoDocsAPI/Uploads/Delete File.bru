@@ -1,0 +1,23 @@
+meta {
+  name: Delete File
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{HOST_LOCAL}}/api/v1/upload/file/70ef521408e38253eb77f6a5f6b1874f.jpg
+  body: none
+  auth: bearer
+}
+
+headers {
+  site-password: abcdefg
+}
+
+auth:bearer {
+  token: {{JWT_TOKEN}}
+}
+
+body:file {
+  file: @file(/Users/dinulfatahryan/Desktop/Screenshot 2025-07-12 at 22.21.45.png) @contentType(image/png)
+}
