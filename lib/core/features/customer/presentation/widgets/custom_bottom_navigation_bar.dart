@@ -30,9 +30,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   static const List<String> _vendorIconPaths = [
     'assets/images/icons/bottom_navigation/home.svg',
+    'assets/images/icons/bottom_navigation/lelang.svg', // ikon lelang vendor
     'assets/images/icons/bottom_navigation/aktivitas.svg',
     'assets/images/icons/bottom_navigation/notifikasi.svg',
-    'assets/images/icons/bottom_navigation/lelang.svg', // ikon lelang vendor
     'assets/images/icons/bottom_navigation/lainnya.svg',
   ];
 

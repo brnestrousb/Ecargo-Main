@@ -1,7 +1,8 @@
+import 'package:ecarrgo/core/features/customer/notifcation/presentation/pages/notification.dart';
 import 'package:ecarrgo/core/features/customer/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/auction_screen.dart';
 import 'package:ecarrgo/core/features/vendor/home/presentation/home_screen_vendor.dart';
-import 'package:ecarrgo/core/features/vendor/other/presentation/pages/other_screen_vendor.dart';
+import 'package:ecarrgo/core/features/vendor/other/other_screen_vendor.dart';
 import 'package:flutter/material.dart';
 
 class VendorNavigation extends StatefulWidget {
@@ -17,7 +18,9 @@ class _VendorNavigationState extends State<VendorNavigation> {
   final List<Widget> _screens = [
     VendorHomeScreen(), // Halaman beranda vendor
     const AuctionScreen(), // Halaman lelang
-    const VendorOtherScreen() // Halaman lainnya
+    const VendorOtherScreen(), // Halaman lainnya
+    NotificationScreen(),
+    VendorOtherScreen()
   ];
 
   void _onTap(int index) {
@@ -29,12 +32,11 @@ class _VendorNavigationState extends State<VendorNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
-     bottomNavigationBar: CustomBottomNavigationBar(
+        body: _screens[_currentIndex],
+        bottomNavigationBar: CustomBottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: _onTap,
           isVendor: true, // tambahkan ini
-        )
-    );
+        ));
   }
 }

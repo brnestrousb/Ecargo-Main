@@ -143,7 +143,7 @@ class _HelpHomePageState extends State<HelpHomePage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF007BFF), Color(0xFF0056D2)],
+            colors: [Color(0xFF008CC8), Color(0xFF01518D)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

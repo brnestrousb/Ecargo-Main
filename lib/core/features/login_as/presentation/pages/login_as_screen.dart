@@ -84,18 +84,30 @@ class _LoginAsScreenState extends State<LoginAsScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: IgnorePointer(
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedRole = 'vendor';
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const SignInScreen(role: UserRole.vendor),
+                              ),
+                            );
+                          },
                           // Nonaktifkan gesture
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 16, horizontal: 12),
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade200, // Tampilan disable
+                              color: AppColors.offWhite2, // Tampilan disable
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Colors.grey.shade400,
-                                width: 1.5,
-                              ),
+                              border: selectedRole == 'customer'
+                                  ? Border.all(
+                                      color: AppColors.darkBlue, width: 1.5)
+                                  : null,
                             ),
                             child: Row(
                               children: [
@@ -108,25 +120,25 @@ class _LoginAsScreenState extends State<LoginAsScreen> {
                                         'assets/images/logo/driver.png',
                                         width: 32,
                                         height: 32,
-                                        color:
-                                            Colors.grey, // Menunjukkan disable
+                                        // color:
+                                        //     Colors.grey, // Menunjukkan disable
                                       ),
                                       const SizedBox(height: 8),
                                       const Text(
                                         'Vendor Logistik',
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: Colors.grey,
+                                          color: Colors.black,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),
                                 ),
-                                const Icon(
-                                  Icons.lock_outline,
-                                  color: Colors.grey,
-                                ),
+                                // const Icon(
+                                //   Icons.lock_outline,
+                                //   color: Colors.grey,
+                                // ),
                               ],
                             ),
                           ),

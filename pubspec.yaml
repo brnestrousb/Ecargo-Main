@@ -58,6 +58,7 @@ dependencies:
   shared_preferences: ^2.5.3
   lottie: ^3.3.1
   url_launcher: ^6.3.2
+  fl_chart: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -177,11 +178,12 @@ flutter:
     - assets/images/jelajahi_images/bg1.png
     - assets/images/jelajahi_images/bg2.png
     - assets/images/jelajahi_images/bg3.png
-    # bottom naviagtion icon
+    # bottom navigation icon
     - assets/images/icons/bottom_navigation/home.svg
     - assets/images/icons/bottom_navigation/aktivitas.svg
     - assets/images/icons/bottom_navigation/notifikasi.svg
     - assets/images/icons/bottom_navigation/lainnya.svg
+    - assets/images/icons/bottom_navigation/lelang.svg
     # onboarding
     - assets/images/onboarding_illustration.png
     - assets/images/logo/ECarrgo_Company_Profile-Blue.png
@@ -195,6 +197,19 @@ flutter:
     - assets/images/logo/pengirim/layanan_icon.png
     - assets/images/logo/pengirim/pantau_icon.png
     - assets/images/vector/line-ecarrgo-home-mobile.svg
+
+    #vendor icon
+    - assets/images/vendor/level_silver.svg
+    - assets/images/vendor/auction.svg
+    - assets/images/vendor/blue_auction.svg
+    - assets/images/vendor/box.svg
+    - assets/images/vendor/food.svg
+    - assets/images/vendor/likes.svg
+    - assets/images/vendor/map_vendor.svg
+    - assets/images/vendor/timer.svg
+    - assets/images/vendor/tshirt.svg
+    - assets/images/vendor/detail.svg
+    - assets/images/vendor/lihat.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

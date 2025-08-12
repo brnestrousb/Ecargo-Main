@@ -1,5 +1,6 @@
 import 'package:ecarrgo/core/constant/colors.dart';
 import 'package:ecarrgo/core/features/login_as/presentation/pages/login_as_screen.dart';
+import 'package:ecarrgo/main_vendor.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ecarrgo/l10n/app_localizations.dart';
@@ -128,7 +129,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginAsScreen()),
+                                  builder: (context) => VendorNavigation()),
+                              //nanti dirubah lagi ke LoginAsScreen()
+                              //VendorNavigation()
                             );
                           },
                           style: ElevatedButton.styleFrom(
