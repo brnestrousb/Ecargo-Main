@@ -220,7 +220,8 @@ class _VendorHomeScreenState extends State<VendorHomeScreen> {
                                       subtitle: "Vendor Silver",
                                       progress: null,
                                       dividerPosition: 0.7,
-                                      onTap: () {} //Level Vendor
+                                      onTap: () {}
+                                      //Navigator.push(context, MaterialPageRoute(builder: (context) => VendorProfileScreen())) //Level Vendor
                                       ),
                                   _buildTopItem(
                                       title: "Paket berhasil terkirim",
