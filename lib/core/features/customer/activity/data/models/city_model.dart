@@ -36,4 +36,4 @@ class CityModel {
       updatedAt: updatedAt,
     );
   }
-}
+}  

@@ -43,7 +43,7 @@ dependencies:
   flutter_svg: ^2.2.0
   provider: ^6.1.0
   flutter_map: ^8.2.1
-  latlong2: ^0.9.0
+  latlong2: ^0.9.1
   logger: ^2.6.0
   dio: ^5.8.0+1
   # firebase_core: ^4.0.0
@@ -59,6 +59,9 @@ dependencies:
   lottie: ^3.3.1
   url_launcher: ^6.3.2
   fl_chart: ^1.0.0
+  google_maps_flutter: ^2.12.3
+  geocoding: ^4.0.0
+  flutter_polyline_points: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -202,6 +205,7 @@ flutter:
     - assets/images/vendor/level_silver.svg
     - assets/images/vendor/auction.svg
     - assets/images/vendor/blue_auction.svg
+    - assets/images/vendor/blue_box.svg
     - assets/images/vendor/box.svg
     - assets/images/vendor/food.svg
     - assets/images/vendor/likes.svg
@@ -210,6 +214,14 @@ flutter:
     - assets/images/vendor/tshirt.svg
     - assets/images/vendor/detail.svg
     - assets/images/vendor/lihat.svg
+    - assets/images/vendor/orange_map.svg
+    - assets/images/vendor/blue_flag.svg
+    - assets/images/vendor/send_packet.svg
+    - assets/images/vendor/protection.svg
+    - assets/images/vendor/map.svg
+    - assets/images/vendor/location.svg
+    - assets/images/vendor/pickup.svg
+    - assets/images/vendor/destination.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

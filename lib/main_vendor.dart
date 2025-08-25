@@ -1,8 +1,9 @@
+import 'package:ecarrgo/core/features/customer/activity/presentation/pages/activity_screen.dart';
 import 'package:ecarrgo/core/features/customer/notifcation/presentation/pages/notification.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/pages/other_screen.dart';
 import 'package:ecarrgo/core/features/customer/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:ecarrgo/core/features/vendor/home/presentation/home_screen_vendor.dart';
-import 'package:ecarrgo/core/features/vendor/other/other_screen_vendor.dart';
-import 'package:ecarrgo/core/features/vendor/other/presentation/auction.dart';
+import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/auction.dart';
 import 'package:flutter/material.dart';
 
 class VendorNavigation extends StatefulWidget {
@@ -18,9 +19,11 @@ class _VendorNavigationState extends State<VendorNavigation> {
   final List<Widget> _screens = [
     VendorHomeScreen(), // Halaman beranda vendor
     AuctionPage(), // Halaman lelang
-    const VendorOtherScreen(), // Halaman lainnya
+    ActivityScreen(),
+    //const VendorOtherScreen(), // Halaman lainnya
     NotificationScreen(),
-    VendorOtherScreen()
+    OtherScreen()
+    //VendorOtherScreen()
   ];
 
   void _onTap(int index) {
