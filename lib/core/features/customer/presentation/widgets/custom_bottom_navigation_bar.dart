@@ -54,8 +54,20 @@ class CustomBottomNavigationBar extends StatelessWidget {
         splashFactory: NoSplash.splashFactory,
         highlightColor: Colors.transparent,
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white, // container tetap putih
+          boxShadow: [
+            BoxShadow(
+              // ignore: deprecated_member_use
+              color: Colors.black.withOpacity(0.1), // shadow tipis
+              offset: const Offset(0, -3), // arah shadow ke atas
+              blurRadius: 6, // bikin shadow halus
+              spreadRadius: 0,
+            ),
+          ],
+        ),
         child: BottomNavigationBar(
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,
@@ -80,14 +92,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           colors: [Color(0xFF008CC8), Color(0xFF01518D)],
                         )
                       : null,
-                  boxShadow: [
-                    BoxShadow(
-                      // ignore: deprecated_member_use
-                      color: Colors.black.withOpacity(0.05),
-                      offset: const Offset(0, -2),
-                      blurRadius: 4,
-                    ),
-                  ],
                 ),
                 padding: const EdgeInsets.all(8),
                 child: SvgPicture.asset(

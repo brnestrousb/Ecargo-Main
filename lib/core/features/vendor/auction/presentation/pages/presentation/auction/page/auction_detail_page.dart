@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable
 import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/model/auction/auction_model.dart';
+import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/page/auction_list_page.dart';
 import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/service/map_auction_service.dart';
 import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/page/auction_map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+
 // ================== PAGE ==================
 class AuctionDetailPage extends StatelessWidget {
   final MapAuctionService service = MapAuctionService();
@@ -271,8 +273,8 @@ class AuctionDetailPage extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => AuctionMapPage(
-                                              detail: detail)));
+                                          builder: (context) =>
+                                              AuctionMapPage(detail: detail)));
                                   // Aksi tombol simulasi
                                 },
                                 icon: SvgPicture.asset(
@@ -286,7 +288,7 @@ class AuctionDetailPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 50),
-                        
+
                         // Tanggal & Jam
                         // Tanggal Pengiriman
                         _buildSectionTitle("Tanggal Pengiriman"),
@@ -602,7 +604,12 @@ class AuctionDetailPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AuctionListPage()));
+                            },
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 20, horizontal: 3),

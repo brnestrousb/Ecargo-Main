@@ -1,4 +1,5 @@
-import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/page/auction_list_page.dart';
+import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/page/auction_detail_page.dart';
+import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/page/auction_full_map_page.dart';
 import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/service/map_auction_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -43,9 +44,13 @@ class AuctionMapPage extends StatelessWidget {
                     ],
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
+                    icon: const Icon(Icons.arrow_back_ios_new,
+                        color: Colors.black, size: 20),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AuctionDetailPage()));
                     },
                   ),
                 ),
@@ -126,11 +131,14 @@ class AuctionMapPage extends StatelessWidget {
           // Tombol Lanjut
           ElevatedButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AuctionListPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AuctionMapFullPage(detail: detail)));
             },
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 48),
+              minimumSize: const Size(double.infinity, 60),
               backgroundColor: const Color(0xFF01518D),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),

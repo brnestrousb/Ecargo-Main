@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/model/auction/auction_model.dart';
+import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/page/auction_offer_page.dart';
 import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/service/list_auction_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,21 +48,6 @@ class _AuctionListPageState extends State<AuctionListPage> {
     super.dispose();
   }
 
-  // String _formatDuration(Duration duration) {
-  //   final days = duration.inDays;
-  //   final hours = duration.inHours % 24;
-  //   final minutes = duration.inMinutes % 60;
-  //   final seconds = duration.inSeconds % 60;
-
-  //   if (days > 0) {
-  //     return "$days Hari $hours Jam $minutes Menit";
-  //   } else if (hours > 0) {
-  //     return "$hours Jam $minutes Menit $seconds Detik";
-  //   } else {
-  //     return "$minutes Menit $seconds Detik";
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +66,8 @@ class _AuctionListPageState extends State<AuctionListPage> {
             children: [
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                 color: Color(0xFF0168A4),
                 child: Column(
                   children: [
@@ -90,7 +77,8 @@ class _AuctionListPageState extends State<AuctionListPage> {
                       children: [
                         InkWell(
                           onTap: () => Navigator.pop(context),
-                          child: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
+                          child: const Icon(Icons.arrow_back_ios_new,
+                              color: Color(0XFFE8EEF4), size: 20),
                         ),
                       ],
                     ),
@@ -98,10 +86,10 @@ class _AuctionListPageState extends State<AuctionListPage> {
 
                     // ikon kotak kurir
                     CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Color(0xFFE8EEF4),
-                      child: SvgPicture.asset('assets/images/vendor/auction.svg')
-                    ),
+                        radius: 40,
+                        backgroundColor: Color(0xFFE8EEF4),
+                        child: SvgPicture.asset(
+                            'assets/images/vendor/auction.svg')),
                     const SizedBox(height: 16),
 
                     // countdown waktu
@@ -112,7 +100,8 @@ class _AuctionListPageState extends State<AuctionListPage> {
                         const SizedBox(width: 8),
                         _buildTimeBox("${remainingTime.inHours % 24}", "Jam"),
                         const SizedBox(width: 8),
-                        _buildTimeBox("${remainingTime.inMinutes % 60}", "Menit"),
+                        _buildTimeBox(
+                            "${remainingTime.inMinutes % 60}", "Menit"),
                       ],
                     ),
                     const SizedBox(height: 18),
@@ -120,7 +109,7 @@ class _AuctionListPageState extends State<AuctionListPage> {
                     // teks "Lelang berakhir pada"
                     const Text(
                       "Lelang berakhir pada:",
-                      style: TextStyle(color: Colors.white, fontSize: 12),
+                      style: TextStyle(color: Color(0XFFE8EEF4), fontSize: 12),
                     ),
                     const SizedBox(height: 8),
 
@@ -128,13 +117,19 @@ class _AuctionListPageState extends State<AuctionListPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Icon(Icons.calendar_today, color: Colors.white, size: 16),
+                        Icon(Icons.calendar_today,
+                            color: Color(0XFFE8EEF4), size: 16),
                         SizedBox(width: 6),
-                        Text("24/06/2025", style: TextStyle(color: Colors.white, fontSize: 12)),
+                        Text("24/06/2025",
+                            style: TextStyle(
+                                color: Color(0XFFE8EEF4), fontSize: 12)),
                         SizedBox(width: 20),
-                        Icon(Icons.access_time, color: Colors.white, size: 16),
+                        Icon(Icons.access_time,
+                            color: Color(0XFFE8EEF4), size: 16),
                         SizedBox(width: 6),
-                        Text("08:00", style: TextStyle(color: Colors.white, fontSize: 12)),
+                        Text("08:00",
+                            style: TextStyle(
+                                color: Color(0XFFE8EEF4), fontSize: 12)),
                       ],
                     ),
                   ],
@@ -145,9 +140,13 @@ class _AuctionListPageState extends State<AuctionListPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("List Penawaran Lelang", style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+                  const Text("List Penawaran Lelang",
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.normal)),
                   const SizedBox(width: 2),
-                  const Text("(12)", style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+                  const Text("(12)",
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.normal)),
                 ],
               ),
               const SizedBox(height: 20),
@@ -176,14 +175,14 @@ class _AuctionListPageState extends State<AuctionListPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Color(0xFF01518D),
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             alignment: Alignment.center,
                             child: const Text(
                               "Terbaik",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Color(0XFFE8EEF4),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -229,7 +228,6 @@ class _AuctionListPageState extends State<AuctionListPage> {
                 ),
               ),
 
-
               // list vendor
               Expanded(
                 child: ListView.builder(
@@ -242,12 +240,16 @@ class _AuctionListPageState extends State<AuctionListPage> {
                         const Divider(thickness: 0.7),
                         const SizedBox(width: 12),
                         Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
                           padding: const EdgeInsets.all(12),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SvgPicture.asset('assets/images/icons/profile.svg', width: 30, height: 30),
+                              SvgPicture.asset(
+                                  'assets/images/icons/profile.svg',
+                                  width: 30,
+                                  height: 30),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Column(
@@ -257,73 +259,99 @@ class _AuctionListPageState extends State<AuctionListPage> {
                                       children: [
                                         const Divider(thickness: 0.7),
                                         const SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Text(
+                                        Row(children: [
+                                          Text(
                                             auction.customerName,
                                             style: const TextStyle(
-                                                fontWeight: FontWeight.bold, fontSize: 14),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
                                           ),
-                                            const SizedBox(width: 2),
-                                            Text("(⭐ 4.7)", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-                                            const SizedBox(width: 5),
-                                          ]
-                                        ),
+                                          const SizedBox(width: 2),
+                                          Text("(⭐ 4.7)",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold)),
+                                          const SizedBox(width: 5),
+                                        ]),
                                         const SizedBox(height: 6),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           // crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
                                             Text(
                                               "Dibuat: ${auction.deliveryDate.day}/${auction.deliveryDate.month}/${auction.deliveryDate.year} ${auction.deliveryTime}",
                                               style: const TextStyle(
-                                                  fontSize: 11, color: Colors.black),
+                                                  fontSize: 11,
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
                                     const SizedBox(height: 4),
-                                    
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             Text("Estimasi tiba: ",
-                                                style: const TextStyle(fontSize: 13)),
+                                                style: const TextStyle(
+                                                    fontSize: 13)),
                                             const SizedBox(height: 5),
                                             Text(auction.shippingEstimate,
-                                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                           ],
                                         ),
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             Text("Harga yang ditawarkan: ",
-                                                style: const TextStyle(fontSize: 13)),
+                                                style: const TextStyle(
+                                                    fontSize: 13)),
                                             const SizedBox(height: 5),
-                                            Text(currencyFormat.format(auction.minBid),
-                                              //auction.minBid.toStringAsFixed(0),
-                                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                            Text(
+                                                currencyFormat
+                                                    .format(auction.minBid),
+                                                //auction.minBid.toStringAsFixed(0),
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                           ],
                                         ),
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             Text("Level Vendor: ",
-                                                style: const TextStyle(fontSize: 13)),
+                                                style: const TextStyle(
+                                                    fontSize: 13)),
                                             const SizedBox(height: 5),
                                             Row(
                                               children: [
-                                                SvgPicture.asset('assets/images/icons/level/silver_icon.svg'),
+                                                SvgPicture.asset(
+                                                    'assets/images/icons/level/silver_icon.svg'),
                                                 const SizedBox(width: 2),
                                                 const Text("Silver",
-                                                    style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
                                               ],
                                             ),
                                           ],
@@ -344,62 +372,97 @@ class _AuctionListPageState extends State<AuctionListPage> {
 
               // summary penawaran
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                padding: const EdgeInsets.all(10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 decoration: BoxDecoration(
-                  color: Color(0XFFE8EEF4),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF01518D),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Container(
-                        // padding: EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                          color: Color(0xFF01518D),
-                          borderRadius: BorderRadius.circular(16)
-                        ),
-                        child: const Text(
-                          "12",
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      "Penawaran",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF01518D)),
-                    ),
-                    const SizedBox(width: 2),
-                    Text(
-                      "(4j 15m)",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Color(0xFF01518D)),
+                  color: Colors.white, // container tetap putih
+                  boxShadow: [
+                    BoxShadow(
+                      // ignore: deprecated_member_use
+                      color: Colors.black.withOpacity(0.1), // shadow tipis
+                      offset: const Offset(0, -3), // arah shadow ke atas
+                      blurRadius: 6, // bikin shadow halus
+                      spreadRadius: 0,
                     ),
                   ],
                 ),
-              ),
-              const Divider(thickness: 0.7, height: 2),
-              // tombol buat penawaran
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 48),
-                    backgroundColor: Color(0xFF01518D),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Color(0XFFE8EEF4),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Color(0xFF01518D),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Container(
+                              // padding: EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                  color: Color(0xFF01518D),
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: const Text(
+                                "12",
+                                style: TextStyle(
+                                    color: Color(0XFFE8EEF4),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Penawaran",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF01518D)),
+                          ),
+                          const SizedBox(width: 2),
+                          Text(
+                            "(4j 15m)",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0xFF01518D)),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  child: const Text("Buat Penawaran", style: TextStyle(color: Colors.white)),
+                    const Divider(thickness: 0.7, height: 2),
+                    // tombol buat penawaran
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OfferPage()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 60),
+                          backgroundColor: Color(0xFF01518D),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text("Buat Penawaran",
+                            style: TextStyle(color: Color(0XFFE8EEF4))),
+                      ),
+                    ),
+                      
+                  ],
                 ),
               ),
-
             ],
           );
         },
@@ -417,7 +480,7 @@ Widget _buildTimeBox(String value, String label) {
       Text(
         value,
         style: const TextStyle(
-          color: Colors.white,
+          color: Color(0XFFE8EEF4),
           fontSize: 32,
           fontWeight: FontWeight.bold,
         ),
@@ -426,11 +489,10 @@ Widget _buildTimeBox(String value, String label) {
       Text(
         label,
         style: const TextStyle(
-          color: Colors.white,
+          color: Color(0XFFE8EEF4),
           fontSize: 14,
         ),
       ),
     ],
   );
 }
-

@@ -10,35 +10,40 @@ class MapAuctionService {
   Future<AuctionDetail> fetchAuctionDetail() async {
   await Future.delayed(const Duration(seconds: 1)); // simulasi delay API
   return AuctionDetail(
-    customerName: "Budi",
-    modelDelivery: "Express",
-    minBid: 150000,
-    deliveryType: "Same Day",
-    distance: "12 km",
-    weight: "5 Kg",
-    category: "Elektronik",
+      customerName: "Budi Angga",
+      modelDelivery: "Pengiriman Regular",
+      minBid: 2125000, // Rp. 2.125.000
+      deliveryType: "Reguler",
+      distance: "230 Km",
+      weight: "120 Kg",
+      category: "Makanan",
     pickupAddress: "Jl. Kemandoran VII No.22",
     destinationAddress: "Binus University, Anggrek Campus",
-    note: "Hati-hati barang mudah pecah",
-    deliveryDate: DateTime.now(),
-    deliveryTime: "14:00",
-    itemWeight: 5.0,
+      note: "-",
+      deliveryDate: DateTime(2025, 6, 24), // 24 Juni 2025
+      deliveryTime: "08:00",
+      itemWeight: 20.0,
     itemValue: 2000000,
-    itemDimension: 0.5,
-    itemDescription: "Laptop 14 inch",
-    shippingType: "Reguler",
-    shippingDesc: "Kirim 1-2 hari",
-    shippingEstimate: "2 Hari",
-    shippingPrice: 25000,
-    protectionType: "Asuransi",
-    protectionPrice: 10000,
-    protectionDesc: "Proteksi barang rusak / hilang",
-    totalBids: 3,
+      itemDimension: 30.0,
+      itemDescription:
+          "Barang pakaian, dimohon untuk tidak terkena air ataupun basah",
+      shippingType: "Dalam Kota (Regular)",
+      shippingDesc:
+          "Instant atau SameDay, waktu lebih cepat dan lebih banyak partisipan lelang.",
+      shippingEstimate: "2-3 Hari",
+      shippingPrice: 174000,
+      protectionType: "Silver Protection",
+      protectionPrice: 1000,
+      protectionDesc:
+          "Sampai dengan Rp. 5.000.000. Cocok untuk barang seperti makanan, buku, atau obat-obatan.",
+      totalBids: 12,
     remainingTime: "4j 15m",
-    detailPickupAddress: "Jl. Kemandoran VII No.22, RT.12/RW.4, Jakarta Selatan",
-    detailDestinationAddress: "Jl. Raya Kb. Jeruk No.27, Jakarta Barat",
+      detailPickupAddress:
+          "Jl. Kemandoran VII No.22, RT.12/RW.4, Grogol Utara, Kec. Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12210",
+      detailDestinationAddress:
+          "Jl. Raya Kb. Jeruk No.27, RT.1/RW.9, Kemanggisan, Kec. Palmerah, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530",
 
-    // koordinat simulasi
+      // koordinat simulasi Jakarta
     pickupLat: -6.21462,
     pickupLng: 106.78825,
     destinationLat: -6.20157,
