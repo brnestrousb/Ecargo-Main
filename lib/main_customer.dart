@@ -1,5 +1,5 @@
 import 'package:ecarrgo/core/features/customer/notifcation/presentation/pages/notification.dart';
-import 'package:ecarrgo/core/features/customer/other/presentation/pages/other_screen.dart';
+import 'package:ecarrgo/core/features/customer/other/other_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ecarrgo/core/features/customer/home/presentation/pages/home_screen.dart';
 import 'package:ecarrgo/core/features/customer/activity/presentation/pages/activity_screen.dart';

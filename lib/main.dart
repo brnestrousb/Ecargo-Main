@@ -1,6 +1,7 @@
 import 'package:ecarrgo/core/features/auth/providers/auth_token_provider.dart';
-import 'package:ecarrgo/core/features/customer/other/presentation/help/help.dart';
+import 'package:ecarrgo/core/features/customer/other/presentation/pages/help.dart';
 import 'package:ecarrgo/core/features/customer/other/presentation/help/widgets/ticket_provider.dart';
+import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_confirmation_page.dart';
 import 'package:ecarrgo/core/providers/fcm_token_provider.dart';
 import 'package:ecarrgo/core/providers/fill_data_provider.dart';
 import 'package:ecarrgo/core/providers/shipment_progress_provider.dart';
@@ -103,6 +104,8 @@ class _MyAppState extends State<MyApp> {
         '/onboarding': (context) => OnboardingScreen(
               setLocale: (locale) => localeProvider.setLocale(locale),
             ),
+        //(context) => OfferConfirmationPage(),
+        
         '/help': (context) =>
             const HelpHomePage(), // ✅ definisi route untuk bantuan
       },

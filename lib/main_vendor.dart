@@ -1,9 +1,9 @@
 import 'package:ecarrgo/core/features/customer/activity/presentation/pages/activity_screen.dart';
 import 'package:ecarrgo/core/features/customer/notifcation/presentation/pages/notification.dart';
-import 'package:ecarrgo/core/features/customer/other/presentation/pages/other_screen.dart';
+import 'package:ecarrgo/core/features/customer/other/other_screen.dart';
 import 'package:ecarrgo/core/features/customer/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:ecarrgo/core/features/vendor/home/presentation/home_screen_vendor.dart';
-import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/presentation/auction/auction.dart';
+import 'package:ecarrgo/core/features/vendor/auction/presentation/auction_vendor.dart';
 import 'package:flutter/material.dart';
 
 class VendorNavigation extends StatefulWidget {
