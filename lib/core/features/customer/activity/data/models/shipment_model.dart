@@ -37,6 +37,7 @@ class ShipmentModel {
   final DateTime? endDatetime;
   final double? weightKg;
   final double? volumeM3;
+  final double? distance;
   final DateTime createdAt;
   final DateTime updatedAt;
   final DateTime? deletedAt;
@@ -80,6 +81,7 @@ class ShipmentModel {
       required this.endDatetime,
       required this.weightKg,
       required this.volumeM3,
+      required this.distance,
       required this.createdAt,
       required this.updatedAt,
       required this.deletedAt,
@@ -133,6 +135,9 @@ class ShipmentModel {
       status: json['status'],
       startDatetime: parseNullableDateTime(json['start_datetime']),
       endDatetime: parseNullableDateTime(json['end_datetime']),
+      distance: json['distance'] != null
+          ? (json['distance'] as num).toDouble()
+          : null,
       weightKg: json['weight_kg'] != null
           ? (json['weight_kg'] as num).toDouble()
           : null,
@@ -225,6 +230,7 @@ class ShipmentModel {
       endDatetime: endDatetime,
       weightKg: weightKg,
       volumeM3: volumeM3,
+      distance: distance,
       createdAt: createdAt,
       updatedAt: updatedAt,
       deletedAt: deletedAt,

@@ -1,9 +1,9 @@
-import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model.dart';
+import 'package:ecarrgo/core/features/customer/activity/data/models/auction_model.dart';
 //import 'package:ecarrgo/core/features/vendor/auction/presentation/pages/model/auction/auction_page_model.dart';
 import 'package:flutter/material.dart';
 
 class AuctionItemCard extends StatefulWidget {
-  final AuctionDetail item;
+  final AuctionModel item;
   final VoidCallback? onTap;
 
   const AuctionItemCard({super.key, required this.item, this.onTap});
@@ -47,7 +47,7 @@ class _AuctionItemCardState extends State<AuctionItemCard> {
                 children: [
                   Expanded(
                     child: Text(
-                      item.destinationAddress, // contoh: "Binus University, Anggrek Campus"
+                      item.shipment.deliveryAddress, // contoh: "Binus University, Anggrek Campus"
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
@@ -71,14 +71,14 @@ class _AuctionItemCardState extends State<AuctionItemCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildLabelValue("Penawaran terbaik:", 
-                      "Rp ${item.shippingPrice.toString()}",
+                      "Rp ${item.auctionStartingPrice}",
                       valueStyle: const TextStyle(
                         color: Color(0xFF002D72),
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       )
                   ),
-                  _buildLabelValue("Waktu tersisa:", item.deliveryTime), // bisa diganti ke countdown
+                  _buildLabelValue("Waktu tersisa:", item.shipment.deliveryDatetime.toString()), // bisa diganti ke countdown
                   _buildLabelValue("Penawaran:", "12"), // sementara hardcode
                 ],
               ),
@@ -88,7 +88,7 @@ class _AuctionItemCardState extends State<AuctionItemCard> {
               Wrap(
                 spacing: 8,
                 children: [
-                  _buildTag(item.shippingType, Colors.blue.shade50, Colors.blue.shade900),
+                  _buildTag(item.shipment.shippingType, Colors.blue.shade50, Colors.blue.shade900),
                   _buildTag("230Km", Colors.grey.shade100, Colors.black87),
                   _buildTag("120Kg", Colors.grey.shade100, Colors.black87),
                   _buildTag("Makanan", Colors.grey.shade100, Colors.black87),

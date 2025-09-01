@@ -1,43 +1,33 @@
 // ignore_for_file: must_be_immutable
-import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model.dart';
-import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_list_page.dart';
-import 'package:ecarrgo/core/features/vendor/auction/widgets/service/map_auction_service.dart';
-import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_map_page.dart';
+
+import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model_vendor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
+class AuctionDetailPage extends StatefulWidget {
+  final Auction detail;
+  const AuctionDetailPage({super.key, required this.detail});
+
+  @override
+  State<AuctionDetailPage> createState() => _AuctionDetailPageState();
+}
+
 // ================== PAGE ==================
-class AuctionDetailPage extends StatelessWidget {
-  final MapAuctionService service = MapAuctionService();
+class _AuctionDetailPageState extends State<AuctionDetailPage> {
   final currencyFormat = NumberFormat.currency(
     locale: "id",
     symbol: 'Rp ',
     decimalDigits: 0,
   );
 
-  AuctionDetailPage({super.key});
   @override
   Widget build(BuildContext context) {
+    final detail = widget.detail;
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: FutureBuilder<AuctionDetail>(
-          future: service.fetchAuctionDetail(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Center(child: Text("Error: ${snapshot.error}"));
-            }
-            if (!snapshot.hasData) {
-              return const Center(child: Text("Tidak ada data"));
-            }
-
-            final detail = snapshot.data!;
-
-            return Column(
+        child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            body: Column(
               children: [
                 // ✅ AppBar custom tetap di atas
                 PreferredSize(
@@ -69,7 +59,7 @@ class AuctionDetailPage extends StatelessWidget {
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
-                                    detail.destinationAddress,
+                                    detail.shipment.deliveryAddress,
                                     style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
@@ -104,7 +94,7 @@ class AuctionDetailPage extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
-                                      "Pengiriman ${detail.deliveryType}",
+                                      "Pengiriman ${detail.shipment.shippingType}",
                                       style: TextStyle(
                                         color: Color(0xFF0168A4),
                                         fontSize: 16,
@@ -148,7 +138,7 @@ class AuctionDetailPage extends StatelessWidget {
                                     width: 36,
                                     height: 36),
                                 const SizedBox(width: 5),
-                                Text(detail.customerName,
+                                Text(detail.shipment.vendor.name,
                                     style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,
@@ -168,7 +158,9 @@ class AuctionDetailPage extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.normal)),
-                            Text(currencyFormat.format(detail.minBid),
+                            Text(
+                                currencyFormat
+                                    .format(detail.auctionStartingPrice),
                                 style: const TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w900,
@@ -181,15 +173,15 @@ class AuctionDetailPage extends StatelessWidget {
                               runSpacing: 8, // jarak vertical jika pindah baris
                               children: [
                                 _buildTag(
-                                    detail.deliveryType,
+                                    detail.shipment.shippingType,
                                     const Color(0xFFE8EEF4),
                                     const Color(0xFF01518D)),
-                                _buildTag(detail.distance, Colors.white,
-                                    Colors.black),
-                                _buildTag(
-                                    detail.weight, Colors.white, Colors.black),
-                                _buildTag(
-                                    detail.category, Colors.white, Colors.black,
+                                // _buildTag(detail.shipment., Colors.white,
+                                //     Colors.black),
+                                _buildTag(detail.shipment.itemWeightTon.toString(),
+                                    Colors.white, Colors.black),
+                                _buildTag(detail.shipment.status, Colors.white,
+                                    Colors.black,
                                     icon: 'assets/images/vendor/food.svg'),
                               ],
                             ),
@@ -205,8 +197,8 @@ class AuctionDetailPage extends StatelessWidget {
                             // Alamat Penjemputan
                             _buildAddressCard(
                               label: "Alamat Penjemputan",
-                              title: detail.pickupAddress,
-                              subtitle: detail.detailPickupAddress,
+                              title: detail.shipment.deliveryCity,
+                              subtitle: detail.shipment.deliveryAddress,
                               iconPath: "assets/images/vendor/blue_flag.svg",
                               badgeColor: Color(0xFF01518D),
                             ),
@@ -214,8 +206,8 @@ class AuctionDetailPage extends StatelessWidget {
                             // Alamat Tujuan
                             _buildAddressCard(
                               label: "Alamat Tujuan",
-                              title: detail.destinationAddress,
-                              subtitle: detail.detailDestinationAddress,
+                              title: detail.shipment.deliveryCity,
+                              subtitle: detail.shipment.deliveryAddress,
                               iconPath: "assets/images/vendor/orange_map.svg",
                               badgeColor: Color(0xFFA68B13),
                             ),
@@ -270,11 +262,6 @@ class AuctionDetailPage extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AuctionMapPage(detail: detail)));
                                   // Aksi tombol simulasi
                                 },
                                 icon: SvgPicture.asset(
@@ -297,13 +284,13 @@ class AuctionDetailPage extends StatelessWidget {
                             Expanded(
                               child: _buildInputBox(
                                 "Tanggal",
-                                "${detail.deliveryDate.toLocal()}"
-                                    .split(" ")[0],
+                                "${detail.createdAt}".split(" ")[0],
                               ),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: _buildInputBox("Jam", detail.deliveryTime),
+                              child: _buildInputBox("Jam",
+                                  detail.shipment.createdAt.toString().split(" ")[1]),
                             ),
                           ],
                         ),
@@ -316,24 +303,25 @@ class AuctionDetailPage extends StatelessWidget {
                             Expanded(
                               child: _buildInputBox(
                                 "Berat total (Kg)",
-                                "${detail.itemWeight} Kg",
+                                "${detail.shipment.itemWeightTon} Kg",
                               ),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: _buildInputBox(
                                 "Nilai Barang (Rp)",
-                                currencyFormat.format(detail.itemValue),
+                                currencyFormat
+                                    .format(detail.shipment.itemValueRp),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 8),
                         _buildInputBox(
-                            "Dimensi m³", "${detail.itemDimension} m³"),
+                            "Dimensi m³", "${detail.shipment.itemVolumeM3} m³"),
                         const SizedBox(height: 8),
-                        _buildInputBox(
-                            "Deskripsi Barang", detail.itemDescription),
+                        _buildInputBox("Deskripsi Barang",
+                            detail.shipment.itemDescription),
                         const SizedBox(height: 16),
 
                         // Paket Pengiriman
@@ -362,7 +350,7 @@ class AuctionDetailPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          detail.shippingType,
+                                          detail.shipment.itemTypes,
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w700,
@@ -370,7 +358,7 @@ class AuctionDetailPage extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 2),
                                         Text(
-                                          detail.modelDelivery,
+                                          detail.shipment.shippingType,
                                           style: TextStyle(
                                               fontSize: 13,
                                               color: Color(0xFFA68B13),
@@ -378,7 +366,7 @@ class AuctionDetailPage extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 8),
                                         Text(
-                                          detail.shippingDesc,
+                                          detail.shipment.itemDescription,
                                           style: const TextStyle(
                                               fontSize: 13,
                                               color: Colors.black,
@@ -402,7 +390,7 @@ class AuctionDetailPage extends StatelessWidget {
                                                 fontSize: 12,
                                                 color: Colors.black54)),
                                         Text(
-                                          detail.shippingEstimate,
+                                          detail.auctionDuration,
                                           style: const TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
@@ -421,8 +409,8 @@ class AuctionDetailPage extends StatelessWidget {
                                                 fontSize: 12,
                                                 color: Colors.black54)),
                                         Text(
-                                          currencyFormat
-                                              .format(detail.shippingPrice),
+                                          currencyFormat.format(
+                                              detail.shipment.itemValueRp),
                                           style: const TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
@@ -472,7 +460,7 @@ class AuctionDetailPage extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              detail.protectionType,
+                                              detail.shipment.protection,
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w900,
@@ -491,8 +479,8 @@ class AuctionDetailPage extends StatelessWidget {
                                                     BorderRadius.circular(6),
                                               ),
                                               child: Text(
-                                                currencyFormat.format(
-                                                    detail.protectionPrice),
+                                                currencyFormat.format(detail
+                                                    .shipment.itemDescription),
                                                 style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF01518D),
@@ -510,7 +498,7 @@ class AuctionDetailPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                detail.protectionDesc,
+                                detail.shipment.protection,
                                 style: const TextStyle(
                                     fontSize: 13,
                                     color: Colors.black,
@@ -523,18 +511,10 @@ class AuctionDetailPage extends StatelessWidget {
                       ]),
                 )
               ],
-            );
-          },
-        ),
+            ),
 
-        // ✅ BottomAppBar tetap di Scaffold utama
-        bottomNavigationBar: FutureBuilder<AuctionDetail>(
-          future: service.fetchAuctionDetail(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return const SizedBox.shrink();
-            final detail = snapshot.data!;
-
-            return SafeArea(
+            // ✅ BottomAppBar tetap di Scaffold utama
+            bottomNavigationBar: SafeArea(
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -574,7 +554,8 @@ class AuctionDetailPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
-                                  detail.totalBids.toString(),
+                                  currencyFormat
+                                      .format(detail.auctionStartingPrice),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -584,7 +565,7 @@ class AuctionDetailPage extends StatelessWidget {
                               ),
                               const SizedBox(width: 8),
                               Text(
-                                "Penawaran (${detail.remainingTime})",
+                                "Penawaran (${detail.auctionDuration})",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14,
@@ -605,10 +586,7 @@ class AuctionDetailPage extends StatelessWidget {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AuctionListPage()));
+                              //List
                             },
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
@@ -648,172 +626,166 @@ class AuctionDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-            );
-          },
-        ),
-      ),
-    );
+            )));
+  }
+}
+
+Widget _buildTag(String text, Color bgColor, Color textColor, {String? icon}) {
+  Color? dynamicTextColor;
+  if (text.toLowerCase() == "reguler") {
+    dynamicTextColor = const Color(0xFF01518D);
+  } else if (text.toLowerCase() == "silver" ||
+      text.toLowerCase() == "prioritas") {
+    dynamicTextColor = Colors.white;
+  } else {
+    dynamicTextColor = textColor;
   }
 
-  Widget _buildTag(String text, Color bgColor, Color textColor,
-      {String? icon}) {
-    Color? dynamicTextColor;
-    if (text.toLowerCase() == "reguler") {
-      dynamicTextColor = const Color(0xFF01518D);
-    } else if (text.toLowerCase() == "silver" ||
-        text.toLowerCase() == "prioritas") {
-      dynamicTextColor = Colors.white;
-    } else {
-      dynamicTextColor = textColor;
-    }
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+    decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey.shade400, width: 1)),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (icon != null) ...[SvgPicture.asset(icon)],
+        const SizedBox(width: 1),
+        Text(text,
+            style: TextStyle(
+                color: dynamicTextColor,
+                fontSize: 12,
+                fontWeight: FontWeight.w900)),
+      ],
+    ),
+  );
+}
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-      decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey.shade400, width: 1)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (icon != null) ...[SvgPicture.asset(icon)],
-          const SizedBox(width: 1),
-          Text(text,
-              style: TextStyle(
-                  color: dynamicTextColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w900)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAddressCard({
-    required String label,
-    required String title,
-    required String subtitle,
-    required String iconPath,
-    required Color badgeColor,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Icon di kiri
-          Column(
-            children: [
-              SvgPicture.asset(
-                iconPath,
-                width: 20,
-                height: 20,
-                // ignore: deprecated_member_use
-                color: badgeColor,
-              ),
-              if (label == "Alamat Penjemputan")
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 4),
-                  width: 2,
-                  height: 50,
-                  color: Colors.grey.shade300,
-                ),
-            ],
-          ),
-          const SizedBox(width: 12),
-
-          // Konten alamat di kanan
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    // ignore: deprecated_member_use
-                    color: badgeColor.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                      color: badgeColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey.shade700,
-                  ),
-                ),
-                const Divider(thickness: 0.6, height: 20),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Helper untuk section title
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-            fontSize: 14, fontWeight: FontWeight.w700, color: Colors.black87),
-      ),
-    );
-  }
-
-// Helper untuk input box gaya readonly
-  Widget _buildInputBox(String label, String value) {
-    return Column(
+Widget _buildAddressCard({
+  required String label,
+  required String title,
+  required String subtitle,
+  required String iconPath,
+  required Color badgeColor,
+}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8),
+    child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Color(0xFF6D7882),
-            fontWeight: FontWeight.w900,
-          ),
+        // Icon di kiri
+        Column(
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              width: 20,
+              height: 20,
+              // ignore: deprecated_member_use
+              color: badgeColor,
+            ),
+            if (label == "Alamat Penjemputan")
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 4),
+                width: 2,
+                height: 50,
+                color: Colors.grey.shade300,
+              ),
+          ],
         ),
-        const SizedBox(height: 6),
-        Container(
-          width: double.maxFinite,
-          margin: const EdgeInsets.only(bottom: 12),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: Color(0xFFF6F8F9),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            value,
-            style: const TextStyle(
-                fontSize: 14,
-                color: Color(0xFF6D7882),
-                fontWeight: FontWeight.w900),
+        const SizedBox(width: 12),
+
+        // Konten alamat di kanan
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
+                  color: badgeColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: badgeColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade700,
+                ),
+              ),
+              const Divider(thickness: 0.6, height: 20),
+            ],
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
+// Helper untuk section title
+Widget _buildSectionTitle(String title) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    child: Text(
+      title,
+      style: const TextStyle(
+          fontSize: 14, fontWeight: FontWeight.w700, color: Colors.black87),
+    ),
+  );
+}
+
+// Helper untuk input box gaya readonly
+Widget _buildInputBox(String label, String value) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: const TextStyle(
+          fontSize: 12,
+          color: Color(0xFF6D7882),
+          fontWeight: FontWeight.w900,
+        ),
+      ),
+      const SizedBox(height: 6),
+      Container(
+        width: double.maxFinite,
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Color(0xFFF6F8F9),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          value,
+          style: const TextStyle(
+              fontSize: 14,
+              color: Color(0xFF6D7882),
+              fontWeight: FontWeight.w900),
+        ),
+      ),
+    ],
+  );
 }

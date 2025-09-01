@@ -1,8 +1,7 @@
-import 'package:ecarrgo/core/features/vendor/auction/widgets/service/map_auction_service.dart';
+import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model_vendor.dart';
 import 'package:ecarrgo/core/features/vendor/auction/widgets/widgets/reusable_button_action.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../data/models/auction_model.dart';
 
 class OfferConfirmationPage extends StatefulWidget {
   const OfferConfirmationPage({super.key});
@@ -12,7 +11,7 @@ class OfferConfirmationPage extends StatefulWidget {
 }
 
 class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
-  late Future<AuctionDetail> _auctionDetail;
+  late Future<Auction> _auctionDetail;
   int currentStep = 1;
   int? selectedIndex;
   final currencyFormat = NumberFormat.currency(
@@ -21,11 +20,6 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
     decimalDigits: 0,
   );
 
-  @override
-  void initState() {
-    super.initState();
-    _auctionDetail = MapAuctionService().fetchAuctionDetail();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +39,7 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
             },
             icon: Icon(Icons.arrow_back_ios_new, size: 20)),
       ),
-      body: FutureBuilder<AuctionDetail>(
+      body: FutureBuilder<Auction>(
         future: _auctionDetail,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -136,7 +130,7 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
     );
   }
 
-  Widget _buildDestinationCard(AuctionDetail detail) {
+  Widget _buildDestinationCard(Auction detail) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -173,13 +167,13 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
               ],
             ),
             const SizedBox(height: 12),
-            Text(detail.destinationAddress,
+            Text(detail.shipment.deliveryAddress,
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.black)),
             const SizedBox(height: 6),
-            Text(detail.detailDestinationAddress,
+            Text(detail.shipment.deliveryAddress,
                 style: const TextStyle(
                     fontSize: 13, color: Colors.black54, height: 1.4)),
           ],
@@ -188,7 +182,7 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
     );
   }
 
-  Widget _buildBidSection(AuctionDetail detail) {
+  Widget _buildBidSection(Auction detail) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -212,7 +206,7 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
             children: [
               const Text("Minimal lelang:",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-              Text(currencyFormat.format(detail.minBid),
+              Text(currencyFormat.format(detail.auctionStartingPrice),
                   style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -234,7 +228,7 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
             // ),
             prefixIconConstraints:
                 const BoxConstraints(minWidth: 0, minHeight: 0),
-            hintText: currencyFormat.format(detail.minBid),
+            hintText: currencyFormat.format(detail..auctionStartingPrice),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
