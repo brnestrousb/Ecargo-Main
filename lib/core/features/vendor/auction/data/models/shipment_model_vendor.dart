@@ -86,51 +86,102 @@ class Shipment {
   });
 
   factory Shipment.fromJson(Map<String, dynamic> json) {
+  return Shipment(
+    id: json['id'] ?? 0,
+    userId: json['user_id'] ?? 0,
+    originCityId: json['origin_city_id'] ?? 0,
+    destinationCityId: json['destination_city_id'] ?? 0,
+    resiNumber: json['resi_number'] ?? '',
+    itemDetail: json['item_detail'],
+    itemTypes: json['item_types'] ?? '',
+    itemWeightTon: json['item_weight_ton'] ?? '',
+    itemValueRp: json['item_value_rp'] ?? '',
+    itemVolumeM3: json['item_volume_m3'] ?? '',
+    itemDescription: json['item_description'] ?? '',
+    pickupAddress: json['pickup_address'] ?? '',
+    pickupLatitude: (json['pickup_latitude'] ?? 0).toDouble(),
+    pickupLongitude: (json['pickup_longitude'] ?? 0).toDouble(),
+    pickupPlaceName: json['pickup_place_name'] ?? '',
+    pickupCity: json['pickup_city'] ?? '',
+    pickupPostalCode: json['pickup_postal_code'] ?? '',
+    pickupCountry: json['pickup_country'] ?? '',
+    deliveryAddress: json['delivery_address'] ?? '',
+    deliveryLatitude: (json['delivery_latitude'] ?? 0).toDouble(),
+    deliveryLongitude: (json['delivery_longitude'] ?? 0).toDouble(),
+    deliveryPlaceName: json['delivery_place_name'] ?? '',
+    deliveryCity: json['delivery_city'] ?? '',
+    deliveryPostalCode: json['delivery_postal_code'] ?? '',
+    deliveryCountry: json['delivery_country'] ?? '',
+    shippingType: json['shipping_type'] ?? '',
+    protection: json['protection'] ?? '',
+    driverNote: json['driver_note'] ?? '',
+    status: json['status'] ?? '',
+    createdAt: DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
+
+    // ✅ Null-safe nested parsing
+    user: json['user'] != null ? User.fromJson(json['user']) : User.empty(),
+    originCity: json['originCity'] != null
+        ? City.fromJson(json['originCity'])
+        : City.empty(),
+    destinationCity: json['destinationCity'] != null
+        ? City.fromJson(json['destinationCity'])
+        : City.empty(),
+    vendor: json['vendor'] != null
+        ? Vendor.fromJson(json['vendor'])
+        : Vendor.empty(),
+
+    payments: (json['payments'] as List<dynamic>? ?? [])
+        .map((e) => Payment.fromJson(e))
+        .toList(),
+    statusHistories: (json['statusHistories'] as List<dynamic>? ?? [])
+        .map((e) => StatusHistory.fromJson(e))
+        .toList(),
+    reviews: (json['reviews'] as List<dynamic>? ?? [])
+        .map((e) => Review.fromJson(e))
+        .toList(),
+  );
+}
+
+
+  factory Shipment.empty() {
     return Shipment(
-      id: json['id'],
-      userId: json['user_id'],
-      originCityId: json['origin_city_id'],
-      destinationCityId: json['destination_city_id'],
-      resiNumber: json['resi_number'] ?? '',
-      itemDetail: json['item_detail'],
-      itemTypes: json['item_types'] ?? '',
-      itemWeightTon: json['item_weight_ton'] ?? '',
-      itemValueRp: json['item_value_rp'] ?? '',
-      itemVolumeM3: json['item_volume_m3'] ?? '',
-      itemDescription: json['item_description'] ?? '',
-      pickupAddress: json['pickup_address'] ?? '',
-      pickupLatitude: (json['pickup_latitude'] ?? 0).toDouble(),
-      pickupLongitude: (json['pickup_longitude'] ?? 0).toDouble(),
-      pickupPlaceName: json['pickup_place_name'] ?? '',
-      pickupCity: json['pickup_city'] ?? '',
-      pickupPostalCode: json['pickup_postal_code'] ?? '',
-      pickupCountry: json['pickup_country'] ?? '',
-      deliveryAddress: json['delivery_address'] ?? '',
-      deliveryLatitude: (json['delivery_latitude'] ?? 0).toDouble(),
-      deliveryLongitude: (json['delivery_longitude'] ?? 0).toDouble(),
-      deliveryPlaceName: json['delivery_place_name'] ?? '',
-      deliveryCity: json['delivery_city'] ?? '',
-      deliveryPostalCode: json['delivery_postal_code'] ?? '',
-      deliveryCountry: json['delivery_country'] ?? '',
-      shippingType: json['shipping_type'] ?? '',
-      protection: json['protection'] ?? '',
-      driverNote: json['driver_note'] ?? '',
-      status: json['status'] ?? '',
-      createdAt: DateTime.parse(json['created_at']),
-      user: User.fromJson(json['user']),
-      originCity: City.fromJson(json['originCity']),
-      destinationCity: City.fromJson(json['destinationCity']),
-      payments: (json['payments'] as List<dynamic>? ?? [])
-          .map((e) => Payment.fromJson(e))
-          .toList(),
-      statusHistories: (json['statusHistories'] as List<dynamic>? ?? [])
-          .map((e) => StatusHistory.fromJson(e))
-          .toList(),
-      reviews: (json['reviews'] as List<dynamic>? ?? [])
-          .map((e) => Review.fromJson(e))
-          .toList(),
-      vendor: Vendor.fromJson(json['vendor']), // ✅ wajib parse
-    );
+        id: 0,
+        userId: 0,
+        originCityId: 0,
+        destinationCityId: 0,
+        resiNumber: '',
+        itemDetail: null,
+        itemTypes: '',
+        itemWeightTon: '',
+        itemValueRp: '',
+        itemVolumeM3: '',
+        itemDescription: '',
+        pickupAddress: '',
+        pickupLatitude: 0.0,
+        pickupLongitude: 0.0,
+        pickupPlaceName: '',
+        pickupCity: '',
+        pickupPostalCode: '',
+        pickupCountry: '',
+        deliveryAddress: '',
+        deliveryLatitude: 0.0,
+        deliveryLongitude: 0.0,
+        deliveryPlaceName: '',
+        deliveryCity: '',
+        deliveryPostalCode: '',
+        deliveryCountry: '',
+        shippingType: '',
+        protection: '',
+        driverNote: '',
+        status: '',
+        createdAt: DateTime.now(),
+        user: User.empty(),
+        originCity: City.empty(),
+        destinationCity: City.empty(),
+        payments: [],
+        statusHistories: [],
+        reviews: [],
+        vendor: Vendor.empty());
   }
 
   Map<String, dynamic> toJson() {

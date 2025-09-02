@@ -32,4 +32,14 @@ class Vendor {
       'avatar': avatar,
     };
   }
+
+  factory Vendor.empty() {
+    return Vendor(
+      id: 0,
+      name: 'Unknown Vendor',
+      company: '',
+      email: '',
+      avatar: '',
+    );
+  }
 }

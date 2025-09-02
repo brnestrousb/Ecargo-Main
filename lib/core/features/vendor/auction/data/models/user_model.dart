@@ -32,4 +32,15 @@ class User {
       'avatar': avatar,
     };
   }
+
+  // ✅ Factory untuk object kosong
+  factory User.empty() {
+    return User(
+      id: 0,
+      name: 'Unknown User',
+      company: '',
+      email: '',
+      avatar: '',
+    );
+  }
 }

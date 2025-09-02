@@ -28,4 +28,14 @@ class City {
       'is_active': isActive,
     };
   }
+
+  // ✅ Factory untuk object kosong
+  factory City.empty() {
+    return City(
+      id: 0,
+      name: 'Unknown City',
+      province: '',
+      isActive: false,
+    );
+  }
 }
