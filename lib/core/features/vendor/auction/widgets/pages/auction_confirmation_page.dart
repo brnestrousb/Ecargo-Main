@@ -1,7 +1,13 @@
+import 'package:dio/dio.dart';
+import 'package:ecarrgo/core/features/vendor/auction/data/datasources/auction_remote_vendor_datasources.dart';
 import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model_vendor.dart';
+import 'package:ecarrgo/core/features/vendor/auction/data/models/shipment_model_vendor.dart';
+import 'package:ecarrgo/core/features/vendor/auction/data/models/vendor_model.dart';
 import 'package:ecarrgo/core/features/vendor/auction/widgets/widgets/reusable_button_action.dart';
+import 'package:ecarrgo/core/network/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 class OfferConfirmationPage extends StatefulWidget {
   const OfferConfirmationPage({super.key});
@@ -11,7 +17,9 @@ class OfferConfirmationPage extends StatefulWidget {
 }
 
 class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
-  late Future<Auction> _auctionDetail;
+  late Future<Auction?> _auctionDetail;
+  late Logger logger = Logger();
+  late AuctionRemoteVendorDataSource auctionRemoteVendorDataSource;
   int currentStep = 1;
   int? selectedIndex;
   final currencyFormat = NumberFormat.currency(
@@ -19,6 +27,85 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
     symbol: 'Rp ',
     decimalDigits: 0,
   );
+
+  @override
+  void initState() {
+    super.initState();
+
+    final dio = Dio(BaseOptions(
+      baseUrl: '${ApiConstants.baseUrl}/api/v1',
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
+      sendTimeout: const Duration(seconds: 30),
+    ));
+
+    auctionRemoteVendorDataSource = AuctionRemoteVendorDataSourceImpl(dio);
+    _auctionDetail = _fetchAuctions();
+  }
+  Future<Auction?> _fetchAuctions() async {
+  try {
+    final response = await auctionRemoteVendorDataSource.getAllAuctions();
+
+    final data = response['data'];
+    if (data == null) {
+      logger.e("Key 'data' tidak ada di response: $response");
+      return null;
+    }
+
+    final List<dynamic> auctionsJson;
+    if (data is Map<String, dynamic> && data['data'] is List) {
+      auctionsJson = data['data'];
+    } else if (data is List) {
+      auctionsJson = data;
+    } else {
+      logger.e("Format data tidak sesuai: $data");
+      return null;
+    }
+
+    if (auctionsJson.isEmpty) return null;
+
+    final json = auctionsJson.first; // ✅ ambil 1 auction saja
+    final shipmentJson = json['shipment'];
+    final vendorJson = json['vendor'];
+
+    return Auction(
+      id: json['id'] ?? 0,
+      shipmentId: json['shipment_id'] ?? 0,
+      vendorId: json['vendor_id'] ?? 0,
+      startingBid: _parseToDouble(json['starting_bid']),
+      auctionStartingPrice: _parseToDouble(json['auction_starting_price']),
+      auctionDuration: json['auction_duration']?.toString() ?? '',
+      status: json['status'] ?? '',
+      createdAt:
+          DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
+      updatedAt:
+          DateTime.tryParse(json['updated_at'] ?? '') ?? DateTime.now(),
+      deletedAt: json['deleted_at'] != null
+          ? DateTime.tryParse(json['deleted_at'])
+          : null,
+      expiresAt:
+          DateTime.tryParse(json['expires_at'] ?? '') ?? DateTime.now(),
+      shipment: shipmentJson != null
+          ? Shipment.fromJson(shipmentJson)
+          : Shipment.empty(),
+      vendor:
+          vendorJson != null ? Vendor.fromJson(vendorJson) : Vendor.empty(),
+      bids: [],
+    );
+  } catch (e, stack) {
+    logger.e('Error fetching auctions: $e', error: e, stackTrace: stack);
+    return null; // ✅ return null jika error
+  }
+}
+
+
+  /// Helper untuk parse dynamic ke double
+  double _parseToDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is num) return value.toDouble();
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return 0.0;
+  }
 
 
   @override
@@ -39,7 +126,7 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
             },
             icon: Icon(Icons.arrow_back_ios_new, size: 20)),
       ),
-      body: FutureBuilder<Auction>(
+      body: FutureBuilder<Auction?>(
         future: _auctionDetail,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -65,13 +152,13 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
                       _buildStepCircle("1", isActive: currentStep >= 1),
                       Expanded(
                         child: Divider(
-                          color: currentStep >= 2
+                          color: currentStep >= 1
                               ? const Color(0xFF01518D)
                               : Colors.grey.shade300,
                           thickness: 2,
                         ),
                       ),
-                      _buildStepCircle("2", isActive: currentStep >= 2),
+                      _buildStepCircle("2", isActive: currentStep >= 1),
                     ],
                   ),
                 ),
@@ -107,26 +194,23 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
     );
   }
 
-  Widget _buildStepCircle(String number, {bool isActive = false}) {
+Widget _buildStepCircle(String number, {bool isActive = false}) {
     return Container(
       width: 32,
       height: 32,
       decoration: BoxDecoration(
-        color: isActive ? Color(0xFF01518D) : Colors.white,
+        color: isActive ? const Color(0xFF01518D) : Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isActive ? Color(0xFF01518D) : Colors.grey.shade300,
+          color: isActive ? const Color(0xFF01518D) : Colors.grey.shade300,
           width: 2,
         ),
       ),
       alignment: Alignment.center,
-      child: Text(
-        number,
-        style: TextStyle(
-          color: isActive ? Colors.white : Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      child: Text(number,
+          style: TextStyle(
+              color: isActive ? Colors.white : Colors.black,
+              fontWeight: FontWeight.bold)),
     );
   }
 
@@ -161,13 +245,13 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black87),
+                        color: Colors.black),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            Text(detail.shipment.deliveryAddress,
+            Text(detail.shipment.deliveryCity,
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -175,7 +259,7 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
             const SizedBox(height: 6),
             Text(detail.shipment.deliveryAddress,
                 style: const TextStyle(
-                    fontSize: 13, color: Colors.black54, height: 1.4)),
+                    fontSize: 13, color: Colors.black, height: 1.4)),
           ],
         ),
       ),
@@ -221,14 +305,9 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
         TextField(
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-            // prefixIcon: Container(
-            //   padding: const EdgeInsets.all(12),
-            //   child: const Text("Rp.",
-            //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-            // ),
             prefixIconConstraints:
                 const BoxConstraints(minWidth: 0, minHeight: 0),
-            hintText: currencyFormat.format(detail..auctionStartingPrice),
+            hintText: currencyFormat.format(detail.auctionStartingPrice),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),

@@ -14,7 +14,7 @@ class Shipment {
   final String? itemDetail;
   final String itemTypes;
   final String itemWeightTon;
-  final String itemValueRp;
+  final double itemValueRp;
   final String itemVolumeM3;
   final String itemDescription;
   final String pickupAddress;
@@ -95,7 +95,7 @@ class Shipment {
     itemDetail: json['item_detail'],
     itemTypes: json['item_types'] ?? '',
     itemWeightTon: json['item_weight_ton'] ?? '',
-    itemValueRp: json['item_value_rp'] ?? '',
+    itemValueRp: double.tryParse(json['item_value_rp']?.toString() ?? '') ?? 0.0,
     itemVolumeM3: json['item_volume_m3'] ?? '',
     itemDescription: json['item_description'] ?? '',
     pickupAddress: json['pickup_address'] ?? '',
@@ -153,7 +153,7 @@ class Shipment {
         itemDetail: null,
         itemTypes: '',
         itemWeightTon: '',
-        itemValueRp: '',
+        itemValueRp: 0.0,
         itemVolumeM3: '',
         itemDescription: '',
         pickupAddress: '',

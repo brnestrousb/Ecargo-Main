@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model_vendor.dart';
+import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_offer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 
 class AuctionDetailPage extends StatefulWidget {
   final Auction detail;
@@ -15,11 +17,11 @@ class AuctionDetailPage extends StatefulWidget {
 
 // ================== PAGE ==================
 class _AuctionDetailPageState extends State<AuctionDetailPage> {
-  final currencyFormat = NumberFormat.currency(
-    locale: "id",
-    symbol: 'Rp ',
-    decimalDigits: 0,
-  );
+  // final currencyFormat = NumberFormat.currency(
+  //   locale: "id",
+  //   symbol: 'Rp ',
+  //   decimalDigits: 0,
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,6 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
             resizeToAvoidBottomInset: true,
             body: Column(
               children: [
-                // ✅ AppBar custom tetap di atas
                 PreferredSize(
                   preferredSize: const Size.fromHeight(200), // lebih tinggi
                   child: AppBar(
@@ -43,7 +44,6 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Baris pertama: Back button + alamat
                             Row(
                               children: [
                                 IconButton(
@@ -59,7 +59,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
-                                    detail.shipment.deliveryAddress,
+                                    '${detail.shipment.pickupCity} - ${detail.shipment.deliveryCity}',
                                     style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
@@ -119,8 +119,6 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                     ),
                   ),
                 ),
-
-                // ✅ Sisanya jadi scrollable
                 Expanded(
                   child: ListView(
                       padding: const EdgeInsets.symmetric(
@@ -158,9 +156,11 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.normal)),
-                            Text(
-                                currencyFormat
-                                    .format(detail.auctionStartingPrice),
+                            Text(NumberFormat.currency(
+                                locale: 'id_ID',
+                                symbol: 'Rp ',
+                                decimalDigits: 0)
+                            .format(detail.auctionStartingPrice),
                                 style: const TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w900,
@@ -172,17 +172,9 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                               spacing: 8, // jarak horizontal
                               runSpacing: 8, // jarak vertical jika pindah baris
                               children: [
-                                _buildTag(
-                                    detail.shipment.shippingType,
-                                    const Color(0xFFE8EEF4),
-                                    const Color(0xFF01518D)),
-                                // _buildTag(detail.shipment., Colors.white,
-                                //     Colors.black),
-                                _buildTag(detail.shipment.itemWeightTon.toString(),
-                                    Colors.white, Colors.black),
-                                _buildTag(detail.shipment.status, Colors.white,
-                                    Colors.black,
-                                    icon: 'assets/images/vendor/food.svg'),
+                                _buildTag(detail.shipment.shippingType),
+                                _buildTag('${detail.shipment.itemWeightTon}Kg'),
+                                _buildTag(detail.shipment.itemTypes),
                               ],
                             ),
                             const SizedBox(height: 15),
@@ -197,8 +189,8 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             // Alamat Penjemputan
                             _buildAddressCard(
                               label: "Alamat Penjemputan",
-                              title: detail.shipment.deliveryCity,
-                              subtitle: detail.shipment.deliveryAddress,
+                              title: detail.shipment.pickupCity,
+                              subtitle: detail.shipment.pickupAddress,
                               iconPath: "assets/images/vendor/blue_flag.svg",
                               badgeColor: Color(0xFF01518D),
                             ),
@@ -235,11 +227,11 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                 color: const Color(0xFFF6F7F8), // abu-abu muda
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Text(
-                                "-", // default isi catatan
+                              child: Text(
+                                detail.shipment.driverNote,
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.black87,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -247,34 +239,34 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             const SizedBox(height: 12),
 
                             // Tombol simulasi
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color(0xFF0168A4), // warna biru
-                                  foregroundColor:
-                                      Colors.white, // teks dan ikon putih
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 14),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  // Aksi tombol simulasi
-                                },
-                                icon: SvgPicture.asset(
-                                    'assets/images/vendor/map.svg'),
-                                label: const Text(
-                                  "Simulasi dari lokasi Anda",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   width: double.infinity,
+                            //   child: ElevatedButton.icon(
+                            //     style: ElevatedButton.styleFrom(
+                            //       backgroundColor:
+                            //           const Color(0xFF0168A4), // warna biru
+                            //       foregroundColor:
+                            //           Colors.white, // teks dan ikon putih
+                            //       padding:
+                            //           const EdgeInsets.symmetric(vertical: 14),
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(12),
+                            //       ),
+                            //     ),
+                            //     onPressed: () {
+                            //       // Aksi tombol simulasi
+                            //     },
+                            //     icon: SvgPicture.asset(
+                            //         'assets/images/vendor/map.svg'),
+                            //     label: const Text(
+                            //       "Simulasi dari lokasi Anda",
+                            //       style: TextStyle(fontSize: 16),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
-                        const SizedBox(height: 50),
+                        //const SizedBox(height: 50),
 
                         // Tanggal & Jam
                         // Tanggal Pengiriman
@@ -289,8 +281,13 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: _buildInputBox("Jam",
-                                  detail.shipment.createdAt.toString().split(" ")[1]),
+                              child: _buildInputBox(
+                                  "Jam",
+                                  detail.shipment.createdAt
+                                      .toLocal()
+                                      .toString()
+                                      .split(" ")[1]
+                                      .split(".")[0]),
                             ),
                           ],
                         ),
@@ -310,8 +307,11 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             Expanded(
                               child: _buildInputBox(
                                 "Nilai Barang (Rp)",
-                                currencyFormat
-                                    .format(detail.shipment.itemValueRp),
+                                NumberFormat.currency(
+                                              locale: 'id_ID',
+                                              symbol: 'Rp ',
+                                              decimalDigits: 0)
+                                          .format(detail.shipment.itemValueRp),
                               ),
                             ),
                           ],
@@ -354,7 +354,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w700,
-                                              color: Colors.black87),
+                                              color: Colors.black),
                                         ),
                                         const SizedBox(height: 2),
                                         Text(
@@ -365,13 +365,13 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                               fontWeight: FontWeight.normal),
                                         ),
                                         const SizedBox(height: 8),
-                                        Text(
-                                          detail.shipment.itemDescription,
-                                          style: const TextStyle(
-                                              fontSize: 13,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.normal),
-                                        ),
+                                        // Text(
+                                        //   detail.shipment.itemDescription,
+                                        //   style: const TextStyle(
+                                        //       fontSize: 13,
+                                        //       color: Colors.black,
+                                        //       fontWeight: FontWeight.normal),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -388,13 +388,13 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                         const Text("Estimasi Waktu Pengiriman",
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.black54)),
+                                                color: Colors.black)),
                                         Text(
                                           detail.auctionDuration,
                                           style: const TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.black87),
+                                              color: Colors.black),
                                         ),
                                       ],
                                     ),
@@ -407,14 +407,17 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                         const Text("Estimasi Harga Lelang",
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.black54)),
+                                                color: Colors.black)),
                                         Text(
-                                          currencyFormat.format(
-                                              detail.shipment.itemValueRp),
+                                          NumberFormat.currency(
+                                              locale: 'id_ID',
+                                              symbol: 'Rp ',
+                                              decimalDigits: 0)
+                                          .format(detail.auctionStartingPrice),
                                           style: const TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.black87),
+                                              color: Colors.black),
                                         ),
                                       ],
                                     ),
@@ -441,7 +444,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   // Ikon di sebelah kiri
                                   SvgPicture.asset(
@@ -455,12 +458,22 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Row(
                                           children: [
                                             Text(
-                                              detail.shipment.protection,
+                                              detail.shipment.shippingType,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w900,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 3),
+                                            Text(
+                                              "Protection",
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w900,
@@ -468,26 +481,6 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                               ),
                                             ),
                                             const SizedBox(width: 8),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8,
-                                                      vertical: 2),
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFE8EEF4),
-                                                borderRadius:
-                                                    BorderRadius.circular(6),
-                                              ),
-                                              child: Text(
-                                                currencyFormat.format(detail
-                                                    .shipment.itemDescription),
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF01518D),
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
                                           ],
                                         ),
                                         const SizedBox(height: 4),
@@ -495,14 +488,6 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                     ),
                                   ),
                                 ],
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                detail.shipment.protection,
-                                style: const TextStyle(
-                                    fontSize: 13,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal),
                               ),
                             ],
                           ),
@@ -554,8 +539,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
-                                  currencyFormat
-                                      .format(detail.auctionStartingPrice),
+                                  detail.bids.length.toString(),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -586,7 +570,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              //List
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => OfferPage(auction: detail)));
                             },
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
@@ -630,35 +614,76 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
   }
 }
 
-Widget _buildTag(String text, Color bgColor, Color textColor, {String? icon}) {
-  Color? dynamicTextColor;
-  if (text.toLowerCase() == "reguler") {
-    dynamicTextColor = const Color(0xFF01518D);
-  } else if (text.toLowerCase() == "silver" ||
-      text.toLowerCase() == "prioritas") {
-    dynamicTextColor = Colors.white;
-  } else {
-    dynamicTextColor = textColor;
+Map<String, dynamic> _mapTagStyle(String text) {
+  switch (text.toLowerCase()) {
+    // Shipping types
+    case 'normal':
+      return {
+        'bgColor': Color(0xFFE8EEF4),
+        'textColor': Color(0xFF01518D),
+        'icon': null,
+      };
+    case 'prioritas':
+      return {
+        'bgColor': Color(0xFFA68B13),
+        'textColor': Colors.white,
+        'icon': null,
+      };
+    case 'silver':
+      return {
+        'bgColor': Color(0xFF6D7882),
+        'textColor': Colors.white,
+        'icon': null,
+      };
+
+    // Item types
+    case 'makanan':
+      return {
+        'icon': 'assets/images/icons/type/food_type_icon.svg',
+      };
+    case 'pakaian':
+      return {
+        'icon': 'assets/images/icons/type/clothes_type_icon.svg',
+      };
+    case 'elektronik':
+      return {
+        'icon': 'assets/images/icons/type/furnitur_type_icon.svg',
+      };
+
+    default:
+      return {
+        'icon': null,
+      };
   }
+}
+
+Widget _buildTag(String text,
+    {Color? bgColor, Color? textColor, String? icon}) {
+  final style = _mapTagStyle(text);
 
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
     decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade400, width: 1)),
+      color: bgColor ?? style['bgColor'],
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: Colors.grey.shade400, width: 1),
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (icon != null) ...[SvgPicture.asset(icon)],
-        const SizedBox(width: 1),
-        Text(text,
-            style: TextStyle(
-                color: dynamicTextColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w900)),
+        if ((icon != null) || (style['icon'] != null)) ...[
+          SvgPicture.asset(icon ?? style['icon'], height: 14, width: 14),
+          const SizedBox(width: 3),
+        ],
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: textColor ?? style['textColor'],
+          ),
+        ),
       ],
     ),
   );
@@ -724,7 +749,7 @@ Widget _buildAddressCard({
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 4),
@@ -751,7 +776,7 @@ Widget _buildSectionTitle(String title) {
     child: Text(
       title,
       style: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w700, color: Colors.black87),
+          fontSize: 14, fontWeight: FontWeight.w700, color: Colors.black),
     ),
   );
 }
