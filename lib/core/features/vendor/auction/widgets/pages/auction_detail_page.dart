@@ -14,14 +14,7 @@ class AuctionDetailPage extends StatefulWidget {
   @override
   State<AuctionDetailPage> createState() => _AuctionDetailPageState();
 }
-
-// ================== PAGE ==================
 class _AuctionDetailPageState extends State<AuctionDetailPage> {
-  // final currencyFormat = NumberFormat.currency(
-  //   locale: "id",
-  //   symbol: 'Rp ',
-  //   decimalDigits: 0,
-  // );
 
   @override
   Widget build(BuildContext context) {

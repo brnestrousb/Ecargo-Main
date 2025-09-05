@@ -94,7 +94,6 @@ class _OfferPageState extends State<OfferPage> {
             ),
           ),
 
-          // List Driver / detail Info
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(16),
@@ -140,10 +139,10 @@ class _OfferPageState extends State<OfferPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("User ID: ${detail.userId}",
+                            Text(detail.userId.toString(),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16)),
-                            Text("Resi: ${detail.resiNumber}",
+                            Text('Resi: ${detail.resiNumber}',
                                 style: const TextStyle(
                                     color: Color(0xFFA68B13), fontSize: 12)),
                           ],
@@ -179,7 +178,7 @@ class _OfferPageState extends State<OfferPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            OfferConfirmationPage(),
+                            OfferConfirmationPage(auction: widget.auction),
                       ),
                     );
                   }
