@@ -284,7 +284,12 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 8),
+
+                        _buildSectionTitle("Jenis Barang"),
+                        _buildTag(detail.shipment.itemTypes,
+                            bgColor: const Color(0xFFE8EEF4)),  
+                        const SizedBox(height: 8),
 
                         // Detail Barang
                         _buildSectionTitle("Detail Barang"),
@@ -638,14 +643,25 @@ Map<String, dynamic> _mapTagStyle(String text) {
       return {
         'icon': 'assets/images/icons/type/clothes_type_icon.svg',
       };
-    case 'elektronik':
+    case 'furniture':
       return {
         'icon': 'assets/images/icons/type/furnitur_type_icon.svg',
       };
-
+    case 'book':
+      return {
+        'icon': 'assets/images/icons/type/book_type_icon.svg',
+      };
+    case 'obat & kesehatan':
+      return {
+        'icon': 'assets/images/icons/type/medicine_type_icon.svg',
+      };
+    case 'dokumen':
+      return {
+        'icon': 'assets/images/icons/type/document_type_icon.svg',
+      };
     default:
       return {
-        'icon': null,
+        'icon': 'assets/images/icons/type/default_type.svg',
       };
   }
 }

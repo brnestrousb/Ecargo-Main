@@ -508,7 +508,7 @@ class _AuctionItemCard extends StatelessWidget {
         return {
           'icon': 'assets/images/icons/type/clothes_type_icon.svg',
         };
-      case 'elektronik':
+      case 'furniture':
         return {
           'icon': 'assets/images/icons/type/furnitur_type_icon.svg',
         };

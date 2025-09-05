@@ -19,6 +19,8 @@ class _OfferPageState extends State<OfferPage> {
   @override
   Widget build(BuildContext context) {
     final detail = widget.auction.shipment; // ✅ akses langsung detail
+    final weightKg = double.tryParse(detail.itemWeightTon) ?? 0.0;
+    final itemWeightTon = (weightKg / 1000).toStringAsFixed(2);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -78,7 +80,8 @@ class _OfferPageState extends State<OfferPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text("${detail.itemWeightTon} Ton",
+                    
+                    Text("$itemWeightTon Ton",
                         style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -155,7 +158,7 @@ class _OfferPageState extends State<OfferPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Kapasitas Maks: ${detail.itemWeightTon} Ton"),
+                            Text("Kapasitas Maks: $itemWeightTon Ton"),
                             Text("Volume Maks: ${detail.itemVolumeM3} m³"),
                           ],
                         ),
