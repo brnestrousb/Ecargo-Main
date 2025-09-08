@@ -1,5 +1,6 @@
 import 'package:ecarrgo/core/constant/colors.dart';
 import 'package:ecarrgo/core/features/customer/activity/presentation/widgets/activity_item_card.dart';
+import 'package:ecarrgo/core/features/vendor/activity/presentation/activity_screen.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -117,7 +118,13 @@ class _VendorHomeScreenState extends State<VendorHomeScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              // Navigasi ke halaman semua aktivitas
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                       const ActivityScreen(),
+                                ),
+                              );
                             },
                             child: Row(
                               children: [

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model_vendor.dart';
+import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_confirmation_page.dart';
 import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_offer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -129,7 +130,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                     width: 36,
                                     height: 36),
                                 const SizedBox(width: 5),
-                                Text(detail.shipment.vendor.name,
+                                Text(detail.shipment.user.name,
                                     style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,
@@ -148,7 +149,8 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             const Text("Minimal lelang:",
                                 style: TextStyle(
                                     fontSize: 13,
-                                    fontWeight: FontWeight.normal)),
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black)),
                             Text(NumberFormat.currency(
                                 locale: 'id_ID',
                                 symbol: 'Rp ',
@@ -284,12 +286,11 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 16),
 
-                        _buildSectionTitle("Jenis Barang"),
-                        _buildTag(detail.shipment.itemTypes,
-                            bgColor: const Color(0xFFE8EEF4)),  
-                        const SizedBox(height: 8),
+                       _buildSectionTitle("Jenis Barang"),
+                       _buildTitleSectionWithTag(detail.shipment.itemTypes),  
+                        const SizedBox(height: 16),
 
                         // Detail Barang
                         _buildSectionTitle("Detail Barang"),
@@ -446,7 +447,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                 children: [
                                   // Ikon di sebelah kiri
                                   SvgPicture.asset(
-                                    'assets/images/vendor/protection.svg',
+                                    _getProtectionIcon(detail.shipment.protection),
                                     width: 30,
                                     height: 30,
                                   ),
@@ -462,16 +463,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                                         Row(
                                           children: [
                                             Text(
-                                              detail.shipment.shippingType,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w900,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 3),
-                                            Text(
-                                              "Protection",
+                                              detail.shipment.protection,
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w900,
@@ -568,7 +560,7 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => OfferPage(auction: detail)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => OfferConfirmationPage(auction: detail)));
                             },
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
@@ -611,6 +603,20 @@ class _AuctionDetailPageState extends State<AuctionDetailPage> {
             )));
   }
 }
+
+String _getProtectionIcon(String protection) {
+  switch (protection.toLowerCase()) {
+    case "blue protection":
+      return "assets/images/icons/protection/blue_protection_icon.svg";
+    case "gold protection":
+      return "assets/images/icons/protection/gold_protection_icon.svg";
+    case "silver protection":
+      return "assets/images/icons/protection/silver_protection_icon.svg";
+    default:
+      return "assets/images/icons/protection/blue_protection_icon.svg"; // fallback
+  }
+}
+
 
 Map<String, dynamic> _mapTagStyle(String text) {
   switch (text.toLowerCase()) {
@@ -661,7 +667,7 @@ Map<String, dynamic> _mapTagStyle(String text) {
       };
     default:
       return {
-        'icon': 'assets/images/icons/type/default_type.svg',
+        'icon': 'assets/images/icons/type/default_type_icon.svg',
       };
   }
 }
@@ -671,19 +677,20 @@ Widget _buildTag(String text,
   final style = _mapTagStyle(text);
 
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+    margin: const EdgeInsets.only(right: 6, bottom: 6), // 🔹 biar rapi
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
     decoration: BoxDecoration(
       color: bgColor ?? style['bgColor'],
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: Colors.grey.shade400, width: 1),
     ),
     child: Row(
+      mainAxisSize: MainAxisSize.min, // ✅ shrink-wrap
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
       children: [
         if ((icon != null) || (style['icon'] != null)) ...[
-          SvgPicture.asset(icon ?? style['icon'], height: 14, width: 14),
-          const SizedBox(width: 3),
+          SvgPicture.asset(icon ?? style['icon'], height: 16, width: 16),
+          const SizedBox(width: 4),
         ],
         Text(
           text,
@@ -697,6 +704,46 @@ Widget _buildTag(String text,
     ),
   );
 }
+
+Widget _buildTitleSectionWithTag(String text,{
+  Color? textColor, String? icon}) {
+  final style = _mapTagStyle(text);
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Container(
+        margin: const EdgeInsets.only(right: 6, bottom: 6), // 🔹 biar rapi
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: Color(0xFFF6F8F9),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Color(0xFFF6F8F9), width: 1),
+          //border: Border.all(color: Colors.grey.shade400, width: 1),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min, // ✅ shrink-wrap
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if ((icon != null) || (style['icon'] != null)) ...[
+              SvgPicture.asset(icon ?? style['icon'], height: 16, width: 16),
+              const SizedBox(width: 4),
+            ],
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: textColor ?? style['textColor'],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+
+}
+
 
 Widget _buildAddressCard({
   required String label,

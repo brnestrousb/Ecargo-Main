@@ -223,6 +223,7 @@ flutter:
     - assets/images/vendor/pickup.svg
     - assets/images/vendor/destination.svg
     - assets/images/vendor/box_car.svg
+    - assets/images/vendor/badge_confirmation.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

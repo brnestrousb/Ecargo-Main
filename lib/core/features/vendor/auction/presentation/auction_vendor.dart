@@ -165,11 +165,18 @@ class _AuctionPageState extends State<AuctionPage> {
                     }).toList();
               if (selectedTab == "Baru") {
                 filteredAuctions.sort((a, b) {
+                  final createdA = a.createdAt;
+                  final createdB = b.createdAt;
+                  return createdB.compareTo(createdA); // terbaru dulu
+                });
+                
+              } else if (selectedTab == "Rekomendasi") {
+                filteredAuctions.sort((a, b) {
                   final durationA = a.auctionDuration;
                   final durationB = b.auctionDuration;
                   return durationB.compareTo(durationA); // descending
                 });
-              }else{
+              } else {
                 filteredAuctions = List.from(filteredAuctions);
               }
 
@@ -210,6 +217,7 @@ class _AuctionPageState extends State<AuctionPage> {
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(
+                                // ignore: deprecated_member_use
                                 color: Colors.black.withOpacity(0.1),
                                 offset: Offset(0, 1),
                                 blurRadius: 6),
@@ -512,10 +520,21 @@ class _AuctionItemCard extends StatelessWidget {
         return {
           'icon': 'assets/images/icons/type/furnitur_type_icon.svg',
         };
-
+      case 'book':
+        return {
+          'icon': 'assets/images/icons/type/book_type_icon.svg',
+        };
+      case 'obat & kesehatan':
+        return {
+          'icon': 'assets/images/icons/type/medicine_type_icon.svg',
+        };
+      case 'dokumen':
+        return {
+          'icon': 'assets/images/icons/type/document_type_icon.svg',
+        };
       default:
         return {
-          'icon': null,
+          'icon': 'assets/images/icons/type/default_type_icon.svg',
         };
     }
   }

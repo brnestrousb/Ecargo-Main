@@ -142,7 +142,7 @@ class _OfferPageState extends State<OfferPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(detail.userId.toString(),
+                            Text('User ID: ${detail.userId.toString()}',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16)),
                             Text('Resi: ${detail.resiNumber}',

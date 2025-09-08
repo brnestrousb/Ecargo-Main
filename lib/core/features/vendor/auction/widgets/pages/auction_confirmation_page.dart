@@ -1,6 +1,7 @@
 import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model_vendor.dart';
 import 'package:ecarrgo/core/features/vendor/auction/widgets/widgets/reusable_button_action.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class OfferConfirmationPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class OfferConfirmationPage extends StatefulWidget {
 class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
   int currentStep = 1;
   int? selectedIndex;
+  var _isLoading = false;
   final TextEditingController _pickupDateController = TextEditingController();
   final TextEditingController _pickupTimeController = TextEditingController();
   final TextEditingController _arrivalStartController = TextEditingController();
@@ -51,24 +53,24 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // STEP INDICATOR
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  _buildStepCircle("1", isActive: currentStep >= 1),
-                  Expanded(
-                    child: Divider(
-                      color: currentStep >= 1
-                          ? const Color(0xFF01518D)
-                          : Colors.grey.shade300,
-                      thickness: 2,
-                    ),
-                  ),
-                  _buildStepCircle("2", isActive: currentStep >= 1),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
+            // Padding(
+            //   padding: const EdgeInsets.all(16),
+            //   child: Row(
+            //     children: [
+            //       _buildStepCircle("1", isActive: currentStep >= 1),
+            //       Expanded(
+            //         child: Divider(
+            //           color: currentStep >= 1
+            //               ? const Color(0xFF01518D)
+            //               : Colors.grey.shade300,
+            //           thickness: 2,
+            //         ),
+            //       ),
+            //       _buildStepCircle("2", isActive: currentStep >= 1),
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
 
             // TUJUAN
             _buildDestinationCard(detail),
@@ -94,10 +96,91 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
         buttonLabel: "Selanjutnya",
         categoryLabel: "🔥 Terbaik",
         categoryIcon: Icons.local_fire_department,
-        onPressed: () {},
+        onPressed: _isLoading ? null : _showConfirmationDialog,
       ),
     );
   }
+
+  Future<void> _submitBid() async {
+  setState(() => _isLoading = true);
+
+  // tampilkan loader overlay
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => const Center(child: CircularProgressIndicator()),
+  );
+
+  // simulasi API call 2 detik
+  await Future.delayed(const Duration(seconds: 2));
+
+  if (mounted) {
+    Navigator.pop(context); // tutup loader
+    setState(() => _isLoading = false);
+
+    // balik ke halaman sebelumnya (atau bisa push ke halaman sukses)
+    Navigator.pop(context, true);
+  }
+}
+
+  void _showConfirmationDialog() {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children:[
+            const SizedBox(height: 16),
+            const Text(
+              "Buat penawaran?",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            SvgPicture.asset("assets/images/vendor/badge_confirmation.svg"), // ilustrasi opsional
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => Navigator.pop(context), // batal
+                    style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 3),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16))),
+                  
+                    child: const Text("Kembali", style: TextStyle(color: Color(0xFF6D7882), fontWeight: FontWeight.bold)),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 3),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                          backgroundColor: Color(0Xff01518D)),
+                    onPressed: () {
+                      Navigator.pop(context); // tutup dialog
+                      _submitBid(); // lanjut ke loader
+                    },
+                    child: const Text("Ya, Buat Penawaran", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    },
+  );
+}
 
   Widget _buildStepCircle(String number, {bool isActive = false}) {
     return Container(
