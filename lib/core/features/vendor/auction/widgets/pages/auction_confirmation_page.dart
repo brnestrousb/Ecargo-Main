@@ -182,26 +182,6 @@ class _AuctionConfirmationPageState extends State<OfferConfirmationPage> {
   );
 }
 
-  Widget _buildStepCircle(String number, {bool isActive = false}) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        color: isActive ? const Color(0xFF01518D) : Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isActive ? const Color(0xFF01518D) : Colors.grey.shade300,
-          width: 2,
-        ),
-      ),
-      alignment: Alignment.center,
-      child: Text(number,
-          style: TextStyle(
-              color: isActive ? Colors.white : Colors.black,
-              fontWeight: FontWeight.bold)),
-    );
-  }
-
   Widget _buildDestinationCard(Auction detail) {
     return Card(
       shape: RoundedRectangleBorder(

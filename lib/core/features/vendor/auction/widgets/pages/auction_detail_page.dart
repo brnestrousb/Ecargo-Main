@@ -2,7 +2,6 @@
 
 import 'package:ecarrgo/core/features/vendor/auction/data/models/auction_model_vendor.dart';
 import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_confirmation_page.dart';
-import 'package:ecarrgo/core/features/vendor/auction/widgets/pages/auction_offer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
